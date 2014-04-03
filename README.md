@@ -1,4 +1,4 @@
 PolyProjects
 ============
 
-Website to connect Cal Poly Entrepreneurs and Leaders to Developers, Artists, Engineers, etc. 
+A website to link Cal Poly Entrepreneurs and Leaders to Artists, Developers, Engineers, etc.
