@@ -1,5 +1,5 @@
 from django.db import models
-from functions import iterableFromFile
+from functions import *
 
 class Listing(models.Model):
   CHOICE_LENGTH = 3
@@ -13,12 +13,12 @@ class Listing(models.Model):
   sponsored = models.BooleanField(default=False)
 
   major = models.CharField(max_length=CHOICE_LENGTH, 
-    choices=iterableFromFile('./choices/majors.list'))
+    choices=iterableFromFile('/choices/majors.list'))
   project_type = models.CharField(max_length=CHOICE_LENGTH, 
-    choices=iterableFromFile('choices/types.list'))
+    choices=iterableFromFile('/choices/types.list'))
   poster_type = models.CharField(max_length=CHOICE_LENGTH,
-     choices=iterableFromFile('choices/posters.list'))
+     choices=iterableFromFile('/choices/posters.list'))
   category = models.CharField(max_length=CHOICE_LENGTH,
-     choices=iterableFromFile('choices/categories.list'))
+     choices=iterableFromFile('/choices/categories.list'))
   skill = models.CharField(max_length=CHOICE_LENGTH,
-     choices=iterableFromFile('choices/skills.list'))
+     choices=iterableFromFile('/choices/skills.list'))

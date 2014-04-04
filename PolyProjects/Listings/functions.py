@@ -1,5 +1,8 @@
-def iterableFromFile(filename='choices/majors.list'):
-  f = open(filename, 'r')
+import os
+
+def iterableFromFile(filename):
+  filepath = os.path.dirname(os.path.abspath(__file__)) + filename
+  f = open(filepath, 'r')
   lines = f.readlines()
   iterable = []
   for l in lines:
