@@ -1,9 +1,23 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from listings.models import Listing
-from listings.forms import ListingForm
+from listings.forms import ListingForm, UserForm
 
+def create_user(request):
+  if request.method == 'POST':
+    form = UserForm(request.POST)
+    if form.is_valid():
+      user = User.objects.create_user(form.cleaned_data['username'],
+        form.cleaned_data['email'], form.cleaned_data['password'])
+      user.save()
+      return redirect('/login/')
+  else:
+    form = UserForm()
+  return render(request, 'listings/create_user.html', {'form':form})
+    
 def index(request):
   return render(request, 'listings/index.html')
 
@@ -37,3 +51,14 @@ def create(request):
   else:
     form = ListingForm()
   return render(request, 'listings/create.html', {'form':form})
+
+def edit(request, listing_id):
+  listing = get_object_or_404(Listing, pk=listing_id)
+  if request.method == 'POST':
+    form = ListingForm(data=request.POST,instance=listing)
+    if form.is_valid():
+      listing = form.save()
+      return redirect(reverse('detail', args=(listing.id,)))
+  else:
+    form = ListingForm(instance=listing)
+  return render(request, 'listings/edit.html', {'form':form})  
