@@ -7,5 +7,5 @@ urlpatterns = patterns('',
     url(r'^listings/', include('listings.urls')),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page':'/listings/'}),
-    url(r'^create_user/$', 'listings.views.create_user'),
+    url(r'^register/$', 'listings.views.register'),
 )

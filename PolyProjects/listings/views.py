@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from listings.models import Listing
 from listings.forms import ListingForm, UserForm
 
-def create_user(request):
+def register(request):
   if request.method == 'POST':
     form = UserForm(request.POST)
     if form.is_valid():
@@ -16,7 +16,7 @@ def create_user(request):
       return redirect('/login/')
   else:
     form = UserForm()
-  return render(request, 'listings/create_user.html', {'form':form})
+  return render(request, 'listings/register.html', {'form':form})
     
 def index(request):
   return render(request, 'listings/index.html')
