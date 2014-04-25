@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from listings.models import Listing
 from listings.forms import ListingForm, UserForm
 
@@ -42,18 +44,24 @@ def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
   return render(request, 'listings/detail.html', {'listing':listing})
 
+@login_required(login_url='/login/')
 def create(request):
   if request.method == 'POST':
     form = ListingForm(request.POST)
     if form.is_valid():
-      listing = form.save()
+      listing = form.save(commit=False)
+      listing.owner = request.user;
+      listing.save()
       return redirect(reverse('detail', args=(listing.id,)))
   else:
     form = ListingForm()
   return render(request, 'listings/create.html', {'form':form})
 
+@login_required(login_url='/login/')
 def edit(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
+  if not listing.can_edit(request.user):
+    raise PermissionDenied;
   if request.method == 'POST':
     form = ListingForm(data=request.POST,instance=listing)
     if form.is_valid():

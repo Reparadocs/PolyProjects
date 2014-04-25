@@ -1,0 +1,85 @@
+- model: listings.skill
+  pk: 1
+  fields:
+    name: Actor
+
+- model: listings.skill
+  pk: 2
+  fields:
+    name: Architect
+
+- model: listings.skill
+  pk: 3
+  fields:
+    name: Artist
+
+- model: listings.skill
+  pk: 4
+  fields:
+    name: Dancer
+
+- model: listings.skill
+  pk: 5
+  fields:
+    name: Developer
+
+- model: listings.skill
+  pk: 6
+  fields:
+    name: Engineer
+
+- model: listings.skill
+  pk: 7
+  fields:
+    name: Graphic Designer
+
+- model: listings.skill
+  pk: 8
+  fields:
+    name: Historian
+
+- model: listings.skill
+  pk: 9
+  fields:
+    name: Journalist
+
+- model: listings.skill
+  pk: 10
+  fields:
+    name: Mathematician
+
+- model: listings.skill
+  pk: 11
+  fields:
+    name: Photographer
+
+- model: listings.skill
+  pk: 12
+  fields:
+    name: Programmer
+
+- model: listings.skill
+  pk: 13
+  fields:
+    name: Scientist
+
+- model: listings.skill
+  pk: 14
+  fields:
+    name: Videographer
+
+- model: listings.skill
+  pk: 15
+  fields:
+    name: Web Designer
+
+- model: listings.skill
+  pk: 16
+  fields:
+    name: Writer
+
+- model: listings.skill
+  pk: 17
+  fields:
+    name: Other
+

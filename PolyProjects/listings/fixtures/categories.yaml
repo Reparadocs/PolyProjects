@@ -1,0 +1,115 @@
+- model: listings.category
+  pk: 1
+  fields:
+    name: Agriculture
+
+- model: listings.category
+  pk: 2
+  fields:
+    name: Architecture
+
+- model: listings.category
+  pk: 3
+  fields:
+    name: Art
+
+- model: listings.category
+  pk: 4
+  fields:
+    name: Business
+
+- model: listings.category
+  pk: 5
+  fields:
+    name: Education
+
+- model: listings.category
+  pk: 6
+  fields:
+    name: Engineering
+
+- model: listings.category
+  pk: 7
+  fields:
+    name: Environment
+
+- model: listings.category
+  pk: 8
+  fields:
+    name: Fashion
+
+- model: listings.category
+  pk: 9
+  fields:
+    name: Film
+
+- model: listings.category
+  pk: 10
+  fields:
+    name: Food/Drink
+
+- model: listings.category
+  pk: 11
+  fields:
+    name: Games
+
+- model: listings.category
+  pk: 12
+  fields:
+    name: Global Issues
+
+- model: listings.category
+  pk: 13
+  fields:
+    name: Government
+
+- model: listings.category
+  pk: 14
+  fields:
+    name: Graphic Design
+
+- model: listings.category
+  pk: 15
+  fields:
+    name: Health/Medicine
+
+- model: listings.category
+  pk: 16
+  fields:
+    name: History
+
+- model: listings.category
+  pk: 17
+  fields:
+    name: Journalism
+
+- model: listings.category
+  pk: 18
+  fields:
+    name: Music
+
+- model: listings.category
+  pk: 19
+  fields:
+    name: Philanthropy/Volunteer
+
+- model: listings.category
+  pk: 20
+  fields:
+    name: Performing Arts
+
+- model: listings.category
+  pk: 21
+  fields:
+    name: Science
+
+- model: listings.category
+  pk: 22
+  fields:
+    name: Technology
+
+- model: listings.category
+  pk: 23
+  fields:
+    name: Other
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% load staticfiles %}
+{% block header %}
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Recreation  
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130121
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>PolyProjects : Post Your Idea</title>
+<link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
+<link href="{% static "style.css" %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+{% endblock %}
+<body>
+{% block menu %}
+<div id="menu-wrapper">
+	<div id="menu">
+		<ul>
+			<li>
+			<a href="post.html" class="button">Post your idea</a>
+			</li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="faq.html">FAQ</a></li>
+			<li><a href="resources.html">Resources</a></li>
+			<li><a href="calendar.html">Calendar</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+	</div>
+	<!-- end #menu -->
+</div>
+{% endblock %}
+{% block header_image %}
+	<div id="header">
+		<a href="index.html"><img src="{% static "logo.png" %}" width="350" height="126px"></a>
+	</div>
+	<div id="steps">
+		<img src="{% static "steps.png" %}" width="550px" height="36px">
+	</div>
+	<!-- end #header -->
+{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}
+<div id="footer">
+	<p>&copy; 2014 mypolyproject.com. | Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.</p>
+</div>
+<!-- end #footer -->
+{% endblock %}
+</body>
+</html>
