@@ -3,10 +3,6 @@
 {% block content %}	
 <form method="post">{% csrf_token %}
 {{ form.as_p }}
-{% for s in skill %}
-fghfg
-{{s.id}}
-{% endfor %}
 <input type="submit" value="Submit"/>
 </form>
 <div id="wrapper">
@@ -14,20 +10,18 @@ fghfg
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				
-					<div class="post">
-								
+					<form method="post">
+						{% csrf_token %}
 						<div style="clear: both;">&nbsp;</div>
 						<div id="sidebar">
 							<ul>
 								<li>
-										<h2>Your name:</h2>
+										
+										<h2>Title:{{ form.title.errors }}</h2>
 										<div id="search" >
-											<form method="get" action="#">
-												<div>
-													<input type="text" name="s" id="search-text" value="" />
-													<input type="submit" id="search-submit" value="" />
-												</div>
-											</form>
+											<div>
+											{{ form.title }}
+										</div>
 										</div>
 										<div style="clear: both;">&nbsp;</div>
 								</li>
@@ -177,13 +171,13 @@ fghfg
 											</div>
 											<div style="clear: both;">&nbsp;</div>
 									</li>
-									<a href="#" class="button">Post your idea</a>
+									<input type="submit" value="Submit"/>
 									
 					</div>
 					<div style="clear: both;">&nbsp;</div>
 					
 					
-				</div>
+				</form>
 				<!-- end #content -->
 
 				<div style="clear: both;">&nbsp;</div>

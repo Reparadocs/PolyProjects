@@ -89,7 +89,7 @@ a:hover {
 	border: none;
 }
 
-#search-text {
+#search-text, #id_title {
 	width: 250px;
 	outline: none;
 	background: #FFF;
