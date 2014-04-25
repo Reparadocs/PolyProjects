@@ -1,3 +1,211 @@
-{% for listing in listing_list %}
-  {{ listing.title }}
-{% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<div id="wrapper">
+	<!-- end #header -->
+	<div id="page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+				<div id="content">
+				{% for listing in listing_list %}
+					<div class="post">
+						<h2 class="title"><a href="{% url 'detail' listing.pk %}">{{ listing.title }}</a></h2>
+						<p class="meta"><span class="date">Updated {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.name }}, <em>{{ listing.get_major_display }}</em></span></p>
+						<div style="clear: both;">&nbsp;</div>
+						<div class="entry">
+							<p><em>Category:
+              				{% for category in listing.category.all %}
+                				{{ category.name }},
+              				{% endfor %}
+              				</em></p>
+							<p>{{ listing.description }}</p>
+							<p><strong>Needs:</strong></p>
+							{% for skill in listing.skill.all %}
+								<p class="links"><a href="#" class="button">{{ skill.name }}</a></p>
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+				<div id="sidebar">
+					<ul>
+						<li>
+							<h2>Search Tags:</h2>
+							<div id="search" >
+								<form method="get" action="#">
+									<div>
+										<input type="text" name="s" id="search-text" value="" />
+										<input type="submit" id="search-submit" value="" />
+									</div>
+								</form>
+							</div>
+							<div style="clear: both;">&nbsp;</div>
+						</li>
+						<li>
+							<h2>Sort by Needs:</h2>
+							<div style="float: left; width: 50%;">
+							<ul>
+								<form>
+									<li><input type="checkbox" name="needs" value="actor">Actor</li>
+									<li><input type="checkbox" name="needs" value="architect">Architect</li>
+									<li><input type="checkbox" name="needs" value="artist">Artist</li>
+									<li><input type="checkbox" name="needs" value="dancer">Dancer</li>
+									<li><input type="checkbox" name="needs" value="designer">Designer</li>
+									<li><input type="checkbox" name="needs" value="developer">Developer</li>
+									<li><input type="checkbox" name="needs" value="engineer">Engineer</li>
+									<li><input type="checkbox" name="needs" value="historian">Historian</li>
+									<li><input type="checkbox" name="needs" value="journalist">Journalist</li>
+								</form>
+							</ul>
+							</div>
+							<div style="float: right; width: 50%;">
+							<ul>
+								<form>
+									
+									<li><input type="checkbox" name="needs" value="mathematician">Mathematician</li>
+									<li><input type="checkbox" name="needs" value="model">Model</li>
+									<li><input type="checkbox" name="needs" value="musician">Musician</li>
+									<li><input type="checkbox" name="needs" value="photographer">Photographer</li>
+									<li><input type="checkbox" name="needs" value="scientist">Scientist</li>
+									<li><input type="checkbox" name="needs" value="videographer">Videographer</li>
+									<li><input type="checkbox" name="needs" value="writer">Writer</li>
+									<li><input type="checkbox" name="needs" value="journalist">Other</li>
+								</form>
+							</ul>
+							</div>
+							
+						</li>
+						<div style="clear: both;">&nbsp;</div>
+						<li>
+							<h2>Sort by Category:</h2>
+							<div style="float: left; width: 50%;">
+							<ul>
+								<form>
+									<li><input type="checkbox" name="category" value="ag">Animals</li>
+									<li><input type="checkbox" name="category" value="ag">Agriculture</li>
+									<li><input type="checkbox" name="category" value="architecture">Architecture</li>
+									<li><input type="checkbox" name="category" value="art">Art/Design</li>
+									<li><input type="checkbox" name="category" value="business">Business</li>
+									<li><input type="checkbox" name="category" value="education">Education</li>
+									<li><input type="checkbox" name="category" value="engineering">Engineering</li>
+									<li><input type="checkbox" name="category" value="engineer">Environment</li>
+									<li><input type="checkbox" name="category" value="fashion">Fashion</li>
+									<li><input type="checkbox" name="category" value="film">Film</li>
+									<li><input type="checkbox" name="category" value="food">Food/Drink</li>
+									
+								</form>
+							</ul>
+							</div>
+							<div style="float: right; width: 50%;">
+							<ul>
+								<form>
+									<li><input type="checkbox" name="category" value="games">Games</li>
+									
+									<li><input type="checkbox" name="category" value="global">Global Issues</li>
+									<li><input type="checkbox" name="category" value="government">Government</li>
+									<li><input type="checkbox" name="category" value="health">Health/Medicine</li>
+									<li><input type="checkbox" name="category" value="history">History</li>
+									<li><input type="checkbox" name="category" value="journalism">Journalism</li>
+									<li><input type="checkbox" name="category" value="music">Music</li>
+									<li><input type="checkbox" name="category" value="performingarts">Performing Arts</li>
+									<li><input type="checkbox" name="category" value="science">Science</li>
+									<li><input type="checkbox" name="category" value="technology">Technology</li>
+											<li><input type="checkbox" name="category" value="other">Other</li>
+
+									
+								</form>
+							</ul>
+							
+						</li>
+						<div style="clear: both;">&nbsp;</div>
+						<li>
+							
+							<h2>Sort by Major:</h2>
+							<div style="float: left; width: 50%;">
+							<ul>
+								<form>
+									<li><input type="checkbox" name="major" value="aero">Aerospace Engineering</li>
+									<li><input type="checkbox" name="major" value="agb">Agribusiness</li>
+									<li><input type="checkbox" name="major" value="agcomm">Agricultural Communications</li>
+									<li><input type="checkbox" name="major" value="aeps">Agricultural and Environmental Plant Sciences</li>
+									<li><input type="checkbox" name="major" value="agsci">Agricultural Science</li>
+									<li><input type="checkbox" name="major" value="agsystems">Agricultural Systems Management</li>
+									<li><input type="checkbox" name="major" value="asci">Animal Science</li>
+									
+									<li><input type="checkbox" name="major" value="anthgeo">Anthropology and Geography</li>
+									<li><input type="checkbox" name="major" value="archeng">Architectural Engineering</li>
+									<li><input type="checkbox" name="major" value="arch">Architecture</li>
+									<li><input type="checkbox" name="major" value="art">Art and Design</li>
+									<li><input type="checkbox" name="major" value="biochem">Biochemistry</li>
+									<li><input type="checkbox" name="major" value="biosci">Biological Sciences</li>
+									<li><input type="checkbox" name="major" value="biomed">Biomedical Engineering</li>	
+									<li><input type="checkbox" name="major" value="bioresource">BioResource and Agricultural Engineering</li>
+									<li><input type="checkbox" name="major" value="busadmin">Business Administration</li>
+									<li><input type="checkbox" name="major" value="chem">Chemistry</li>
+									<li><input type="checkbox" name="major" value="childdev">Child Development</li>
+									<li><input type="checkbox" name="major" value="crp">City and Regional Planning</li>
+									<li><input type="checkbox" name="major" value="civileng">Civil Engineering</li>
+									<li><input type="checkbox" name="major" value="ethnicstudies">Comparative Ethnic Studies</li>
+									<li><input type="checkbox" name="major" value="coms">Communication Studies</li>
+									<li><input type="checkbox" name="major" value="compeng">Computer Engineering</li>
+									<li><input type="checkbox" name="major" value="compsci">Computer Science</li>
+									<li><input type="checkbox" name="major" value="cm">Construction Management</li>
+									<li><input type="checkbox" name="major" value="dsci">Dairy Science</li>
+									<li><input type="checkbox" name="major" value="econ">Economics</li>
+									<li><input type="checkbox" name="major" value="ee">Electrical Engineering</li>
+									<li><input type="checkbox" name="major" value="english">English</li>
+									<li><input type="checkbox" name="major" value="earthsci">Environmental Earth Science</li>
+									
+									
+								</form>
+							</ul>
+							</div>
+							<div style="float: right; width: 50%;">
+							<ul>
+								<form>
+									<li><input type="checkbox" name="major" value="environeng">Environmental Engineering</li>
+									<li><input type="checkbox" name="major" value="environmanagement">Environmental Management and Protection</li>
+									<li><input type="checkbox" name="major" value="soilsci">Environmental Soil Science</li>
+									<li><input type="checkbox" name="major" value="foodsci">Food Science</li>
+									<li><input type="checkbox" name="major" value="forestry">Forestry and Natural Resources</li>
+									<li><input type="checkbox" name="major" value="geneng">General Engineering</li>
+									<li><input type="checkbox" name="major" value="grc">Graphic Communication</li>
+									<li><input type="checkbox" name="major" value="history">History</li>
+									<li><input type="checkbox" name="major" value="industrialeng">Industrial Engineering</li>
+									<li><input type="checkbox" name="major" value="industrialtech">Industrial Technology</li>
+									<li><input type="checkbox" name="major" value="journalism">Journalism</li>
+									<li><input type="checkbox" name="major" value="kine">Kinesiology</li>
+									<li><input type="checkbox" name="major" value="larc">Landscape Architecture</li>
+									<li><input type="checkbox" name="major" value="liberalstudies">Liberal Studies</li>
+									<li><input type="checkbox" name="major" value="maneng">Manufacturing Engineering</li>
+									<li><input type="checkbox" name="major" value="mateng">Materials Engineering</li>
+									<li><input type="checkbox" name="major" value="math">Mathematics</li>
+									<li><input type="checkbox" name="major" value="mechanicaleng">Mechanical Engineering</li>
+									<li><input type="checkbox" name="major" value="microbio">Microbiology</li>
+									<li><input type="checkbox" name="major" value="mll">Modern Languages and Literature</li>
+									<li><input type="checkbox" name="major" value="music">Music</li>
+									<li><input type="checkbox" name="major" value="nutrition">Nutrition</li>
+									<li><input type="checkbox" name="major" value="philoshophy">Philosophy</li>
+									<li><input type="checkbox" name="major" value="physics">Physics</li>
+									<li><input type="checkbox" name="major" value="politicalsci">Political Science</li>
+									<li><input type="checkbox" name="major" value="psych">Psychology</li>
+									<li><input type="checkbox" name="major" value="rpta">Recreation, Parks, and Tourism Administration</li>
+									<li><input type="checkbox" name="major" value="sociology">Sociology</li>
+									<li><input type="checkbox" name="major" value="software">Software Engineering</li>
+									<li><input type="checkbox" name="major" value="stats">Statistics</li>
+									<li><input type="checkbox" name="major" value="theatre">Theatre Arts</li>
+									<li><input type="checkbox" name="major" value="wvit">Wine and Viticulture</li>
+									
+									
+								</form>
+							</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- end #sidebar -->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

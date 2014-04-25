@@ -28,13 +28,13 @@ Released   : 20130121
 	<div id="menu">
 		<ul>
 			<li>
-			<a href="post.html" class="button">Post your idea</a>
+			<a href="{% url 'listings.views.create' %}" class="button">Post your idea</a>
 			</li>
-			<li><a href="about.html">About</a></li>
-			<li><a href="faq.html">FAQ</a></li>
-			<li><a href="resources.html">Resources</a></li>
-			<li><a href="calendar.html">Calendar</a></li>
-			<li><a href="contact.html">Contact</a></li>
+			<li><a href="{% url 'listings.views.about' %}">About</a></li>
+			<li><a href="{% url 'listings.views.faq' %}">FAQ</a></li>
+			<li><a href="{% url 'listings.views.resources' %}">Resources</a></li>
+			<li><a href="{% url 'listings.views.calendar' %}">Calendar</a></li>
+			<li><a href="{% url 'listings.views.contact' %}">Contact</a></li>
 		</ul>
 	</div>
 	<!-- end #menu -->
@@ -42,7 +42,7 @@ Released   : 20130121
 {% endblock %}
 {% block header_image %}
 	<div id="header">
-		<a href="index.html"><img src="{% static "logo.png" %}" width="350" height="126px"></a>
+		<a href="{% url 'index' %}"><img src="{% static "logo.png" %}" width="350" height="126px"></a>
 	</div>
 	<div id="steps">
 		<img src="{% static "steps.png" %}" width="550px" height="36px">

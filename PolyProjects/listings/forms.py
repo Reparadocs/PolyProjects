@@ -10,12 +10,12 @@ class UserForm(ModelForm):
     fields = ['username', 'email', 'password']
 
 class ListingForm(ModelForm):
-  skill = forms.MultipleChoiceField(choices=((x.name, x.name) for x in Skill.objects.all()),
+  skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
     widget=forms.CheckboxSelectMultiple)
-  category = forms.MultipleChoiceField(choices=((x.name, x.name) for x in Skill.objects.all()),
+  category = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Category.objects.all()),
     widget=forms.CheckboxSelectMultiple)
   class Meta:
     model = Listing
-    fields = ['title', 'description', 'tags', 'sponsored',
+    fields = ['title', 'description', 'tags', 'sponsored', 'name',
       'major', 'project_type', 'poster_type', 'category', 'skill']
 

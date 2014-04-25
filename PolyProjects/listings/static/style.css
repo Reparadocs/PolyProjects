@@ -89,14 +89,28 @@ a:hover {
 	border: none;
 }
 
-#search-text, #id_title {
+ul.errorlist {
+  color: red;
+}
+
+#id_major, #id_project_type, #id_poster_type {
+  width: 250px;
+  outline: none;
+  background: #FFF;
+  border: 1px solid #D7D0C0;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  color: #454545;
+}
+
+#search-text, #id_title, #id_tags, #id_description {
 	width: 250px;
 	outline: none;
 	background: #FFF;
 	border: 1px solid #D7D0C0;
 	padding: 10px;
 	border-radius: 8px;
-	text-transform: lowercase;
 	font-family: 'Open Sans', sans-serif;
 	color: #454545;
 }

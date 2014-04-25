@@ -1,1 +1,78 @@
-{{ listing.get_skill_display }}
+{% extends "base.html" %}
+{% block content %}
+<div id="wrapper">
+  <div id="page">
+    <div id="page-bgtop">
+      <div id="page-bgbtm">
+        
+        <div id="content">
+          <div class="post">
+            <h2 class="title">{{ listing.title }}</h2>
+            <p class="meta"><span class="date"> Updated {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.name }}, <em>{{ listing.get_major_display }}</em></span></p>
+            <div style="clear: both;">&nbsp;</div>
+            <div class="entry">
+              <p><em>Category:
+              {% for category in listing.category.all %}
+                {{ category.name }},
+              {% endfor %}
+              </em></p>
+              {{ listing.description }}
+            </div>
+          </div>
+          <div style="clear: both;">&nbsp;</div>
+        </div>
+        <div id="sidebar">
+          <ul>
+            {% if showedit %}
+            <li>
+              <a href="{% url 'edit' listing.pk %}" class="button">Edit Project</a>
+
+              <div style="clear: both;">&nbsp;</div>
+            </li>
+            {% endif %}
+            <li>
+              <a href="#" class="button">Join Project</a>
+            
+              <div style="clear: both;">&nbsp;</div>
+            </li>
+            <li>
+              <h2>Needs:</h2>
+              <ul>
+                {% for skill in listing.skill.all %}
+                  <li>{{ skill.name }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li>
+              <h2>Team Members:</h2>
+              <ul>
+                <li>Kathryn Cassidy, <em>Graphic Communication</em></li>
+                <li>Steven Dice, <em>Computer Science</em></li>
+                <li>Jordan Damron, <em>Graphic Communcation</em></li>
+              </ul>
+            </li>
+            <li>
+              <h2>Project Type:</h2>
+              <ul>
+                <li>{{ listing.get_project_type_display }}</li>
+              </ul>
+            </li>
+            <li>
+              <h2>Poster Type:</h2>
+              <ul>
+                <li>{{ listing.get_poster_type_display }}</li>
+              </ul>
+            </li>
+            <li>
+            {% if listing.sponsored %} 
+              <h2><em>(Sponsored)</em></h2>
+            {% endif %}
+            </li>
+          </ul>
+        </div>
+        <div style="clear: both;">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

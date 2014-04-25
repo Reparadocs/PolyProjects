@@ -20,6 +20,7 @@ class Listing(models.Model):
   finished = models.BooleanField(default=False, blank=True)
   sponsored = models.BooleanField(default=False)
 
+  name = models.CharField(max_length=100)
   major = models.CharField(max_length=CHOICE_LENGTH,
     choices=iterableFromFile('/choices/majors.list'))
   project_type = models.CharField(max_length=CHOICE_LENGTH,

@@ -1,4 +1,26 @@
-<form method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit"/>
-</form>
+{% extends "base.html" %}
+{% block content %}
+<div id="wrapper">
+  <div id="page">
+    <div id="page-bgtop">
+      <div id="page-bgbtm">
+        <form method="post">
+        {% csrf_token %}
+        <div style="clear: both;">&nbsp;</div>
+          <div id="sidebar">
+          {% for field in form %}
+            <div>
+              {{ field.errors }}
+              <h2>{{ field.label_tag }}</h2>
+              {{ field }}
+            </div>
+          {% endfor %}
+            <input type="submit" value="Submit"/>
+          </div>
+        <div style="clear: both;">&nbsp;</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
