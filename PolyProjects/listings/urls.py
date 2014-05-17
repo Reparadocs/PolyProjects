@@ -7,4 +7,5 @@ urlpatterns = patterns('',
   url(r'^create/$', views.create, name='create'),
   url(r'^(?P<listing_id>[0-9]+)/$', views.detail, name='detail'),
   url(r'^edit/(?P<listing_id>[0-9]+)/$', views.edit, name='edit'),
+  url(r'^notifications/$', views.notifications, name='notifications'),
 )

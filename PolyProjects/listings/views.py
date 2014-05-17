@@ -18,7 +18,7 @@ def register(request):
       return redirect('/login/')
   else:
     form = UserForm()
-  return render(request, 'listings/register.html', {'form':form})
+  return render(request, 'users/register.html', {'form':form})
     
 def index(request):
   listing_list = Listing.objects.all()
@@ -77,6 +77,10 @@ def edit(request, listing_id):
   else:
     form = ListingForm(instance=listing)
   return render(request, 'listings/edit.html', {'form':form})  
+
+@login_required(login_url='/login')
+def notifications(request):
+  return render(request, 'users/notifications.html')
 
 def about(request):
   return render(request, 'info/about.html')

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+{% for notification in request.user.notification_set.all %}
+  {{ notification.message }}
+{% endfor %}
+{% endblock %}    

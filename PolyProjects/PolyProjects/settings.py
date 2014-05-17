@@ -53,6 +53,10 @@ ROOT_URLCONF = 'PolyProjects.urls'
 
 WSGI_APPLICATION = 'PolyProjects.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+  'django.contrib.auth.context_processors.auth',
+  'django.core.context_processors.request',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
