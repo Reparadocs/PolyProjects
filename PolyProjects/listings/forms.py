@@ -1,13 +1,12 @@
 from django.forms import ModelForm
 from django import forms
-from listings.models import Listing, Skill, Category
-from django.contrib.auth.models import User
+from listings.models import Listing, Skill, Category, UserProfile
 
 class UserForm(ModelForm):
   password = forms.CharField(widget=forms.PasswordInput())
   class Meta:
-    model = User
-    fields = ['username', 'email', 'password']
+    model = UserProfile
+    fields = ['username', 'email', 'password','first_name','last_name','major']
 
 class ListingForm(ModelForm):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
@@ -16,6 +15,6 @@ class ListingForm(ModelForm):
     widget=forms.CheckboxSelectMultiple)
   class Meta:
     model = Listing
-    fields = ['title', 'description', 'tags', 'sponsored', 'name',
-      'major', 'project_type', 'poster_type', 'category', 'skill']
+    fields = ['title', 'description', 'tags', 'sponsored',
+              'project_type', 'poster_type', 'category', 'skill']
 

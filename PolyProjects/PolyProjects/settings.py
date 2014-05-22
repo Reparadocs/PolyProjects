@@ -21,12 +21,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Moved to secret.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
+LOGIN_URL = '/login/'
+
 DEBUG = True
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'listings.UserProfile'
 
 # Application definition
 

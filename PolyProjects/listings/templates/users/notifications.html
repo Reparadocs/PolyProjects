@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-{% for notification in request.user.notification_set.all %}
-  {{ notification.message }}
+{% for notification in notification_list %}
+{{ notification.message }} 
+{% if notification.ntype == 0 %}
+<a href="{% url 'complete_notification' notification.pk %}" class="button">OK</a>
+{% elif notification.ntype == 1 %}
+<a href="{% url 'accept_join_request' notification.pk %}" class="button">Accept</a>
+<a href="{% url 'decline_join_request' notification.pk %}" class="button">Decline</a>
+{% endif %}
 {% endfor %}
 {% endblock %}    
