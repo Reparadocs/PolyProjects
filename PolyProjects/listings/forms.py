@@ -18,3 +18,12 @@ class ListingForm(ModelForm):
     fields = ['title', 'description', 'tags', 'sponsored',
               'project_type', 'poster_type', 'category', 'skill']
 
+class SearchForm(ModelForm):
+  skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
+    widget=forms.CheckboxSelectMultiple)
+  category = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Category.objects.all()),
+    widget=forms.CheckboxSelectMultiple)
+  class Meta:
+    model = Listing
+    fields = ['tags', 'sponsored','project_type', 
+              'poster_type', 'category', 'skill']

@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from listings.models import Listing, Notification, UserProfile, NotificationType
-from listings.forms import ListingForm, UserForm
+from listings.forms import ListingForm, UserForm, SearchForm
 
 def register(request):
   if request.method == 'POST':
@@ -23,9 +23,48 @@ def register(request):
   return render(request, 'users/register.html', {'form':form})
     
 def index(request):
+  if request.method == 'POST':
+    form = SearchForm(request.POST)
+    if form.is_valid():
+      skill = form.cleaned_data['skill']
+      project_type = form.cleaned_data['project_type']
+      poster_type = form.cleaned_data['poster_type']
+      category = form.cleaned_data['category']
+      sponsored = form.cleaned_data['sponsored']
+      listing_list = Listing.objects.filter(
+        project_type__icontains=project_type,
+        poster_type__icontains=poster_type,
+        category__in=category,
+        sponsored=sponsored)
+      return render(request, 'listings/search.html', {'listing_list':listing_list})
+  else:
+    form = SearchForm()
   listing_list = Listing.objects.filter(finished=False)
-  return render(request, 'listings/index.html', {'listing_list':listing_list})
+  return render(request, 'listings/index.html', {'listing_list':listing_list,'form':form})
 
+"""
+def search(request):
+  if request.method == 'POST':
+    form = SearchForm(request.POST)
+    if form.is_valid():
+      skill = form.cleaned_data['skill']
+      major = form.cleaned_data['major']
+      project_type = form.cleaned_data['project_type']
+      poster_type = form.cleaned_data['poster_type']
+      category = form.cleaned_data['category']
+      sponsored = form.cleaned_data['sponsored']
+      finished = form.cleaned_data['finished']
+      listing_list = Listing.objects.filter(
+        owner__major__icontains=major,
+        project_type__icontains=project_type,
+        poster_type__icontains=poster_type,
+        category__in=category,
+        sponsored=sponsored,
+        finished=finished)
+      return render(request, 'listings/search.html', {'listing_list':listing_list})
+    else
+      form = SearchForm
+      
 def search(request):
   skill_id = request.GET.get('skill','unset')
   major_id = request.GET.get('major','')
@@ -47,6 +86,7 @@ def search(request):
   if skill_id != 'unset':
     listing_list = listing_list.filter(skill__in=skill_id)
   return render(request, 'listings/search.html', {'listing_list':listing_list})
+"""
 
 def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
