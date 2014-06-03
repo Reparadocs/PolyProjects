@@ -7,6 +7,8 @@ from django.core.exceptions import PermissionDenied
 from listings.models import Listing, Notification, UserProfile, NotificationType
 from listings.forms import ListingForm, UserForm, SearchForm
 from functions import sendMail
+import datetime
+from django.utils import timezone
 
 def register(request):
   if request.method == 'POST':
@@ -17,6 +19,7 @@ def register(request):
       user.first_name = form.cleaned_data['first_name']
       user.last_name = form.cleaned_data['last_name']
       user.major = form.cleaned_data['major']
+      user.email_notifications = form.cleaned_data['email_notifications']
       user.save()
       verify_msg = "http://mysterious-fortress-8708.herokuapp.com/verify_email/?verify={}".format(user.email_verification_code)
       sendMail(user.email, 'Verify Your Email', verify_msg)
@@ -150,6 +153,39 @@ def complete_notification(request, notification_id):
   notification.completed=True
   notification.save()
   return redirect(reverse('notifications'))
+
+@login_required
+def renew_listing_notification(request, notification_id):
+  notification = get_object_or_404(Notification, pk=notification_id)
+  if not notification.can_edit(request.user):
+    raise PermissionDenied
+  notification.completed=True
+  notification.save()
+  notification.listing.expiration_date = timezone.now() + datetime.timedelta(days=30)
+  notification.listing.finish=False
+  notification.listing.save()
+  return redirect(reverse('notifications'))
+
+@login_required
+def finish_listing_notification(request, notification_id):
+  notification = get_object_or_404(Notification, pk=notification_id)
+  if not notification.can_edit(request.user):
+    raise PermissionDenied
+  notification.completed=True
+  notification.save()
+  notification.listing.finished=True
+  notification.listing.save()
+  return redirect(reverse('notifications'))
+
+@login_required
+def renew_listing(request, listing_id):
+  listing = get_object_or_404(Listing, pk=listing_id)
+  if not listing.can_edit(request.user):
+    raise PermissionDenied
+  listing.expiration_date = timezone.now() + datetime.timedelta(days=30)
+  listing.finish=False
+  listing.save()
+  return redirect(reverse('detail', args=(listing.id,)))
 
 #Static Views
 def about(request):

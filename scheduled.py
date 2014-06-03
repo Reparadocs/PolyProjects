@@ -23,10 +23,11 @@ def updateListingsExpiration():
       l.save()
     elif l.expiration_date - datetime.timedelta(days=5) < timezone.now():
       msg = "{} is going to expire soon!".format(l.title)
+      emailmsg = msg + "\nClick this to renew it: " + os.environ['BASE_URL'] + "/listings/renew_listing/" + str(l.id)
       sendMail(l.owner.email, "Your Listing will expire soon!", msg,
         l.owner.email_verified and l.owner.email_notifications)
       notification = Notification(receiver=l.owner,
-        message=msg, listing=l, 
+        message=emailmsg, listing=l, 
         ntype=NotificationType.EXPIRATION_NOTICE)
       notification.save()
     elif l.expiration_date - datetime.timedelta(days=10) < timezone.now():

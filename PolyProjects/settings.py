@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Moved to secret.py
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY','test_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 LOGIN_URL = '/login/'
