@@ -85,10 +85,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'static'),
-)
-
 LOGIN_REDIRECT_URL = '/listings/'
 
 EMAIL_HOST = "smtp.mailgun.org"
