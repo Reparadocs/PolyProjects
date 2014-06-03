@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from listings.models import Listing, Notification, UserProfile, NotificationType
 from listings.forms import ListingForm, UserForm, SearchForm
+from functions import sendMail
 
 def register(request):
   if request.method == 'POST':
@@ -17,6 +18,8 @@ def register(request):
       user.last_name = form.cleaned_data['last_name']
       user.major = form.cleaned_data['major']
       user.save()
+      verify_msg = "http://mysterious-fortress-8708.herokuapp.com/verify_email/?verify={}".format(user.email_verification_code)
+      sendMail(user.email, 'Verify Your Email', verify_msg)
       return redirect('/login/')
   else:
     form = UserForm()
@@ -45,52 +48,6 @@ def index(request):
     form = SearchForm()
   listing_list = Listing.objects.filter(finished=False)
   return render(request, 'listings/index.html', {'listing_list':listing_list,'form':form})
-
-"""
-def search(request):
-  if request.method == 'POST':
-    form = SearchForm(request.POST)
-    if form.is_valid():
-      skill = form.cleaned_data['skill']
-      major = form.cleaned_data['major']
-      project_type = form.cleaned_data['project_type']
-      poster_type = form.cleaned_data['poster_type']
-      category = form.cleaned_data['category']
-      sponsored = form.cleaned_data['sponsored']
-      finished = form.cleaned_data['finished']
-      listing_list = Listing.objects.filter(
-        owner__major__icontains=major,
-        project_type__icontains=project_type,
-        poster_type__icontains=poster_type,
-        category__in=category,
-        sponsored=sponsored,
-        finished=finished)
-      return render(request, 'listings/search.html', {'listing_list':listing_list})
-    else
-      form = SearchForm
-      
-def search(request):
-  skill_id = request.GET.get('skill','unset')
-  major_id = request.GET.get('major','')
-  type_id = request.GET.get('type','')
-  cat_id = request.GET.get('cat','unset')
-  ptype_id = request.GET.get('ptype','')
-  sponsor_id = request.GET.get('sponsor','unset')
-  finish_id = request.GET.get('finish','false')
-  listing_list = Listing.objects.filter(
-    owner__major__icontains=major_id,
-    project_type__icontains=type_id,
-    poster_type__icontains=ptype_id,
-    finished=finish_id)
-  if sponsor_id != 'unset':
-    sponsor_id = 'true' == sponsor_id
-    listing_list = listing_list.filter(sponsored=sponsor_id)
-  if cat_id != 'unset':
-    listing_list = listing_list.filter(category__in=cat_id)
-  if skill_id != 'unset':
-    listing_list = listing_list.filter(skill__in=skill_id)
-  return render(request, 'listings/search.html', {'listing_list':listing_list})
-"""
 
 def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
@@ -146,7 +103,8 @@ def verify_email(request):
   verify = request.GET.get('verify','')
   if verify == request.user.email_verification_code:
     request.user.email_verified = True
-  return render(reverse('index'))
+    request.user.save()
+  return redirect(reverse('index'))
 
 #Notification Views
 @login_required
