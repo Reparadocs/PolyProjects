@@ -17,12 +17,14 @@ def updateListingsExpiration():
         message=msg, listing=l, 
         ntype=NotificationType.EXPIRATION_NOTICE)
       notification.save()
-      sendMail(l.owner.email, "Your Listing Has Expired!", msg)
+      sendMail(l.owner.email, "Your Listing Has Expired!", msg,
+        l.owner.email_verified and l.owner.email_notifications)
       l.finished = True
       l.save()
     elif l.expiration_date - datetime.timedelta(days=5) < timezone.now():
       msg = "{} is going to expire soon!".format(l.title)
-      sendMail(l.owner.email, "Your Listing will expire soon!", msg)
+      sendMail(l.owner.email, "Your Listing will expire soon!", msg,
+        l.owner.email_verified and l.owner.email_notifications)
       notification = Notification(receiver=l.owner,
         message=msg, listing=l, 
         ntype=NotificationType.EXPIRATION_NOTICE)

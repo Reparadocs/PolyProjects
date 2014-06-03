@@ -8,7 +8,7 @@ class UserForm(ModelForm):
   major = forms.ModelChoiceField(queryset=Major.objects.all())
   class Meta:
     model = UserProfile
-    fields = ['username', 'email', 'password','first_name','last_name','major']
+    fields = ['username', 'email', 'password','first_name','last_name','major','email_notifications']
 
 class ListingForm(ModelForm):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
