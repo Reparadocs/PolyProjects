@@ -13,7 +13,7 @@ def updateListingsExpiration():
   for l in listings:
     if l.expiration_date < timezone.now():
       msg = "{} has just expired".format(l.title)
-      emailmsg = msg + "\nClick this to renew it: " + os.environ['BASE_URL'] + "listings/renew_listing/" + str(l.id)
+      emailmsg = msg + "\nClick this to renew it: " + os.environ['BASE_URL'] + "/listings/renew_listing/" + str(l.id)
       notification = Notification(receiver=l.owner,
         message=msg, listing=l, 
         ntype=NotificationType.EXPIRATION_NOTICE)
