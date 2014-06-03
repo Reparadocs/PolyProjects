@@ -98,6 +98,8 @@ def flip_finished(request, listing_id):
   if not listing.can_edit(request.user):
     raise PermissionDenied
   listing.finished = not listing.finished
+  if listing.finished == True:
+    listing.expiration_date = timezone.now() + datetime.datetime.now()
   listing.save()
   return redirect(reverse('detail', args=(listing.id,)))
 
