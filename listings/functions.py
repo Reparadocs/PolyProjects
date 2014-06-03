@@ -44,4 +44,4 @@ def sendMail(receiver, subject, message):
     receiver, msg.as_string())
 
 def getVerificationCode(string):
-  return hashlib.md5(string).hexdigest()
+  return hashlib.md5(string+os.environ['ADDED_SECURITY_STRING']).hexdigest()

@@ -29,6 +29,7 @@ class Major(models.Model):
 class UserProfile(AbstractUser):
   major = models.ForeignKey(Major, null=True)
   email_verified = models.BooleanField(default=False, blank=True)
+  email_verification_code = models.CharField(default=getVerificationCode(self.email+self.major),max_length=100, blank=True)
   email_notifications = models.BooleanField(default=False, blank=True)
 
   def get_unread_notifications(self):
