@@ -3,7 +3,6 @@ import os
 from email.mime.text import MIMEText
 import random
 import hashlib
-import secret
 
 def iterableFromFile(filename):
   filepath = os.path.dirname(os.path.abspath(__file__)) + filename
@@ -40,7 +39,7 @@ def sendMail(receiver, subject, message):
   msg['From'] = "PolyProjects"
   msg['To'] = receiver
   server = smtplib.SMTP('smtp.mailgun.org', 587)
-  server.login(secret.SMTP_EMAIL, secret.SMTP_PASSWORD)
+  server.login(os.environ['SMTP_EMAIL'], os.environ['SMTP_PASSWORD'])
   server.sendmail('admin@sandbox74de207b727a484588a9c3fe48527dfc.mailgun.org',
     receiver, msg.as_string())
 
