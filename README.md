@@ -7,8 +7,8 @@ Get it working
 ==============
 
 1. Clone Project
-2. Add secret.py file in PolyProjects/ with SECRET_KEY (change PolyProjects/settings.py)
-3. Add secret.py file in listings/ with SMTP_EMAIL AND SMTP_PASSWORD (change listings/functions.py)
+2. Add .env file with SECRET_KEY, SMTP_EMAIL, and SMTP_PASSWORD
+3. Do something with heroku databse stuff in settings.py
 4. Run syncdb
 5. Run init.py (Initializes fixtures)
 6. Run loaddata on each fixture (skills, categories, majors)
