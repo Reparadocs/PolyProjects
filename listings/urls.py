@@ -14,6 +14,6 @@ urlpatterns = patterns('',
   url(r'^decline_join_request/(?P<notification_id>[0-9]+)/$', views.decline_join_request, name='decline_join_request'),
   url(r'^complete_notification/(?P<notification_id>[0-9]+)/$', views.complete_notification, name='complete_notification'),
   url(r'^renew_listing/(?P<listing_id>[0-9]+)/$', views.renew_listing, name='renew_listing'),
-  url(r'^renew_listing_notification(?P<notification_id>[0-9]+)/$', views.renew_listing_notification, name='renew_listing_notification')
+  url(r'^renew_listing_notification(?P<notification_id>[0-9]+)/$', views.renew_listing_notification, name='renew_listing_notification'),
   url(r'^finish_listing_notification/(?P<notification_id>[0-9]+)/$', views.finish_listing_notification, name='finish_listing_notification'),
 )
