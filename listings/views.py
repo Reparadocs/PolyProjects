@@ -141,6 +141,14 @@ def flip_finished(request, listing_id):
   listing.save()
   return redirect(reverse('detail', args=(listing.id,)))
 
+@login_required
+def verify_email(request):
+  verify = request.GET.get('verify','')
+  if verify == self.request.user.email_verification_code:
+    self.request.user.email_verified = True
+    self.request.user.save()
+  return render(reverse('index'))
+
 #Notification Views
 @login_required
 def join_request(request, listing_id):
