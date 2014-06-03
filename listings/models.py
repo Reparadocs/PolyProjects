@@ -3,6 +3,7 @@ from functions import iterableFromFile
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 import datetime
+from functions import getVerificationCode
 
 CHOICE_LENGTH = 5
 
