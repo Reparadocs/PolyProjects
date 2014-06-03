@@ -162,7 +162,7 @@ def renew_listing_notification(request, notification_id):
   notification.completed=True
   notification.save()
   notification.listing.expiration_date = timezone.now() + datetime.timedelta(days=30)
-  notification.listing.finish=False
+  notification.listing.finished=False
   notification.listing.save()
   return redirect(reverse('notifications'))
 
@@ -183,7 +183,7 @@ def renew_listing(request, listing_id):
   if not listing.can_edit(request.user):
     raise PermissionDenied
   listing.expiration_date = timezone.now() + datetime.timedelta(days=30)
-  listing.finish=False
+  listing.finished=False
   listing.save()
   return redirect(reverse('detail', args=(listing.id,)))
 
