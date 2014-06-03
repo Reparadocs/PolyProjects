@@ -35,7 +35,7 @@ class UserProfile(AbstractUser):
 
   def __init__(self, *args, **kwargs):
     super(AbstractUser, self).__init__(*args, **kwargs)
-    self.email_verification_code = getVerificationCode(self.email+self.major)
+    self.email_verification_code = getVerificationCode(self.email)
 
   def get_unread_notifications(self):
     return self.notification_set.filter(completed=False)
