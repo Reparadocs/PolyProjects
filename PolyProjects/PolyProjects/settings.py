@@ -91,3 +91,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/listings/'
+
+EMAIL_HOST = "smtp.mailgun.org"
+
+EMAIL_PORT = 25
+
+EMAIL_HOST_USER = "postmaster@sandbox74de207b727a484588a9c3fe48527dfc.mailgun.org"
+
+EMAIL_HOST_PASSWORD = "1vhuvn-psuj5"

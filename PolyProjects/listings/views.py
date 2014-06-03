@@ -34,8 +34,12 @@ def index(request):
       listing_list = Listing.objects.filter(
         project_type__icontains=project_type,
         poster_type__icontains=poster_type,
-        category__in=category,
         sponsored=sponsored)
+      if skill != []:
+        listing_list = listing_list.filter(skill__in=skill)
+      if category != []:
+        listing_list = listing_list.filter(category__in=category)
+      print listing_list
       return render(request, 'listings/search.html', {'listing_list':listing_list})
   else:
     form = SearchForm()

@@ -1,4 +1,9 @@
+import smtplib
 import os
+from email.mime.text import MIMEText
+import random
+import hashlib
+import secret
 
 def iterableFromFile(filename):
   filepath = os.path.dirname(os.path.abspath(__file__)) + filename
@@ -29,3 +34,15 @@ def createYAMLFixture(infile, outfile, app):
     f.write("    name: {}\n".format(yList[i]))
   f.close()
 
+def sendMail(receiver, subject, message):
+  msg = MIMEText(message)
+  msg['Subject'] = subject
+  msg['From'] = "PolyProjects"
+  msg['To'] = receiver
+  server = smtplib.SMTP('smtp.mailgun.org', 587)
+  server.login(secret.SMTP_EMAIL, secret.SMTP_PASSWORD)
+  server.sendmail('admin@sandbox74de207b727a484588a9c3fe48527dfc.mailgun.org',
+    receiver, msg.as_string())
+
+def getVerificationCode(string):
+  return hashlib.md5(string).hexdigest()
