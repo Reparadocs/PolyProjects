@@ -144,9 +144,8 @@ def flip_finished(request, listing_id):
 @login_required
 def verify_email(request):
   verify = request.GET.get('verify','')
-  if verify == self.request.user.email_verification_code:
-    self.request.user.email_verified = True
-    self.request.user.save()
+  if verify == request.user.email_verification_code:
+    request.user.email_verified = True
   return render(reverse('index'))
 
 #Notification Views
