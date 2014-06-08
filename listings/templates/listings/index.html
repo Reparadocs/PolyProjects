@@ -30,6 +30,7 @@
 				<!-- end #content -->
 				<div id="sidebar">
 					<form method="post">
+					{{form.as_ul}}
 					{% csrf_token %}
 					<ul>
 						{% for field in form %}

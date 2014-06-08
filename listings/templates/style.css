@@ -43,6 +43,10 @@ p, ul, ol {
 	line-height: 180%;
 }
 
+ul.columns li {
+    float:left; width:50%;
+}
+
 ul, ol {
 }
 
