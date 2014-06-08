@@ -9,6 +9,7 @@ from listings.forms import ListingForm, UserForm, SearchForm
 from functions import sendMail
 import datetime
 from django.utils import timezone
+import os
 
 def register(request):
   if request.method == 'POST':
@@ -21,7 +22,7 @@ def register(request):
       user.major = form.cleaned_data['major']
       user.email_notifications = form.cleaned_data['email_notifications']
       user.save()
-      verify_msg = "http://mysterious-fortress-8708.herokuapp.com/verify_email/?verify={}".format(user.email_verification_code)
+      verify_msg = os.environ['BASE_URL'] + "/verify_email/?verify={}".format(user.email_verification_code)
       sendMail(user.email, 'Verify Your Email', verify_msg)
       return redirect('/login/')
   else:
@@ -115,9 +116,11 @@ def verify_email(request):
 @login_required
 def join_request(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
+  msg = "{} wants to joing the team for {}!".format(request.user.first_name, listing.title)
   notification = Notification(receiver=listing.owner, sender=request.user, 
-    message="{} wants to join the team for {}".format(request.user.first_name, listing.title),
-    listing=listing, ntype=NotificationType.JOIN_REQUEST)
+    message=msg, listing=listing, ntype=NotificationType.JOIN_REQUEST)
+  sendMail(listing.owner.email, msg, os.environ['BASE_URL'] + "/notifications/",
+    listing.owner.email_verified and listing.owner.email_notifications)
   notification.save()
   return redirect(reverse('detail', args=(listing.id,)))
 
@@ -130,8 +133,10 @@ def accept_join_request(request, notification_id):
   notification.completed=True
   notification.save()
   notification.listing.team.add(notification.sender)
-  new_notification = Notification(receiver=notification.sender, sender=request.user,
-    message="Your request to join the team for {} has been accepted!".format(notification.listing.title))
+  msg = "Your request to join the team for {} has been accepted!".format(notification.listing.title)
+  new_notification = Notification(receiver=notification.sender, sender=request.user, message=msg)
+  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" + notifications.listing.id,
+    notification.sender.email_verified and notification.sender.email_notifications)
   new_notification.save()
   return redirect(reverse('notifications'))
 
@@ -142,8 +147,11 @@ def decline_join_request(request, notification_id):
     raise PermissionDenied
   notification.completed=True
   notification.save()
+  msg = "Your request to join the team for {} has been denied. Sorry :(".format(notification.listing.title)
   new_notification = Notification(receiver=notification.sender, sender=request.user,
-    message="Your request to join the team for {} has been denied. Sorry :(".format(notification.listing.title))
+    message=msg)
+  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" + notifications.listing.id,
+    notification.sender.email_verified and notification.sender.email_notifications)
   new_notification.save()
   return redirect(reverse('notifications'))
 
