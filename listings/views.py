@@ -22,8 +22,9 @@ def register(request):
       user.major = form.cleaned_data['major']
       user.email_notifications = form.cleaned_data['email_notifications']
       user.save()
-      verify_msg = os.environ['BASE_URL'] + "/verify_email/?verify={}".format(user.email_verification_code)
-      sendMail(user.email, 'Verify Your Email', verify_msg)
+      if user.email_notifications:
+        verify_msg = os.environ['BASE_URL'] + "/verify_email/?verify={}".format(user.email_verification_code)
+        sendMail(user.email, 'Verify Your Email', verify_msg)
       return redirect('/login/')
   else:
     form = UserForm()
