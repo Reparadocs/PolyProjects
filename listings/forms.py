@@ -35,7 +35,7 @@ class ColumnCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         output = []
         for column in columns:
             if self.css_class:
-                output.append(u'<ul class="%s"' % self.css_class)
+                output.append(u'<ul class="%s">' % self.css_class)
             else:
                 output.append(u'<ul>')
             # Normalize to strings
@@ -93,9 +93,9 @@ class UserForm(ModelForm):
 
 class ListingForm(ModelForm):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
-    widget=forms.CheckboxSelectMultiple)
+    widget=ColumnCheckboxSelectMultiple(css_class="columns"))
   category = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Category.objects.all()),
-    widget=forms.CheckboxSelectMultiple)
+    widget=ColumnCheckboxSelectMultiple(css_class="columns"))
   class Meta:
     model = Listing
     fields = ['title', 'description', 'tags', 'sponsored',
@@ -103,8 +103,10 @@ class ListingForm(ModelForm):
 
 class SearchForm(forms.Form):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
-    widget=ColumnCheckboxSelectMultiple, required=False)
+    widget=ColumnCheckboxSelectMultiple(css_class="columns"), required=False)
   category = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Category.objects.all()),
+    widget=ColumnCheckboxSelectMultiple(css_class="columns"), required=False)
+  major = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Major.objects.all()),
     widget=ColumnCheckboxSelectMultiple(css_class="columns"), required=False)
   tags = forms.CharField(required=False)
   sponsored = forms.BooleanField(required=False)
@@ -118,6 +120,8 @@ class SearchForm(forms.Form):
     if 'skill' not in self.cleaned_data:
       self.cleaned_data['skill'] = ''
     if 'category' not in self.cleaned_data:
+      self.cleaned_data['category'] = ''
+    if 'major' not in self.cleaned_data:
       self.cleaned_data['category'] = ''
     if 'tags' not in self.cleaned_data:
       self.cleaned_data['tags'] = ''

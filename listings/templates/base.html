@@ -20,6 +20,15 @@ Released   : 20130121
 <title>PolyProjects : Post Your Idea</title>
 <link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
 <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" media="screen" />
+<style type="text/css">
+.row { vertical-align: top; height:auto !important; }
+.list {display:none; }
+.show {display: none; }
+.hide:target + .show {display: inline; }
+.hide:target {display: none; }
+.hide:target ~ .list {display:inline; }
+@media print { .hide, .show { display: none; } }
+</style>
 </head>
 {% endblock %}
 <body>

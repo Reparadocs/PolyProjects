@@ -39,6 +39,7 @@ def index(request):
       poster_type = form.cleaned_data['poster_type']
       category = form.cleaned_data['category']
       sponsored = form.cleaned_data['sponsored']
+      major = form.cleaned_data['major']
       listing_list = Listing.objects.filter(
         project_type__icontains=project_type,
         poster_type__icontains=poster_type,
@@ -47,6 +48,8 @@ def index(request):
         listing_list = listing_list.filter(skill__in=skill)
       if category != []:
         listing_list = listing_list.filter(category__in=category)
+      if major != []:
+        listing_list = listing_list.filter(major__in=major)
       print listing_list
       return render(request, 'listings/search.html', {'listing_list':listing_list})
   else:
