@@ -1,21 +1,30 @@
+{% extends "base.html" %}
 {% block content %}
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+The username and password do not match
 {% endif %}
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-{% csrf_token %}
-<table>
-<tr>
-<td>{{ form.username.label_tag }}</td>
-<td>{{ form.username }}</td>
-</tr>
-<tr>
-<td>{{ form.password.label_tag }}</td>
-<td>{{ form.password }}</td>
-</tr>
-</table>
+  {% csrf_token %}
+
+  <div class="post">
+    <div style="clear: both;">&nbsp;</div>
+    <h3>{{ form.username.label_tag }}</h3>
+    <div id="search" >
+        <div>
+          {{form.username}}
+        </div>
+    </div>
+    <h3>{{ form.password.label_tag }}</h3>
+    <div id="search" >
+        <div>
+          {{form.password}}
+        </div>
+    </div>
+  </div>
+  <div style="clear: both;">&nbsp;</div>
+</div>
 
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
