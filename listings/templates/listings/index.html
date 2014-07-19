@@ -5,8 +5,9 @@
 	<div id="page">
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
-				
+								
 				<div id="content">
+
 				{% for listing in listing_list %}
 					<div class="post">
 						<h2 class="title"><a href="{% url 'detail' listing.pk %}">{{ listing.title }}</a></h2>
@@ -21,36 +22,61 @@
 							<p>{{ listing.description }}</p>
 							<p><strong>Needs:</strong></p>
 							{% for skill in listing.skill.all %}
-								<p class="links"><a href="#" class="button">{{ skill.name }}</a></p>
+								<p class="links"><a class="button">{{ skill.name }}</a></p>
 							{% endfor %}
 						</div>
 					</div>
 				{% endfor %}
+				<p class="links">
+				{% if listing_list.has_previous %}
+					<a href="{{querystring}}&page={{listing_list.previous_page_number}}" class="button">Previous</a>
+				{% endif %}
+				Page {{listing_list.number}} of {{listing_list.paginator.num_pages}}
+				{% if listing_list.has_next %}
+					<a href="{{querystring}}&page={{listing_list.next_page_number}}" class="button">Next</a>
+				{% endif %}
+				</p>
 				</div>
 				<!-- end #content -->
 				<div id="sidebar">
 					<form method="post">
 					{% csrf_token %}
-					<ul>
+					
 						{% for field in form %}
+						<ul>
 						<li>
 							{{ field.errors }}
 							<h2>{{ field.label_tag }}</h2>
-						{% if field.label == "Major" %}
-						<a href="#hide1" class="hide" id="hide1">(+) Expand</a>
-						<a href="#show1" class="show" id="show1">(-) Collapse</a>
-						<div class="list">
 
+						{% if field.label == "Major" %}
+						<a id="show1">(+) Expand</a>
+						<a id="hide1">(-) Collapse</a>
+						<div id="major-list">
 							{{ field }}
 						</div>
 						{% else %}
-
 							{{ field }}
 						{% endif %}
+            <script>
+              $('#hide1').hide();
+              $('#major-list').hide();
+              $('#hide1').click(function() {
+                $('#major-list').hide();
+                $('#hide1').hide();
+                $('#show1').show();
+              });
+              $('#show1').click(function() {
+                $('#major-list').show();
+                $('#hide1').show();
+                $('#show1').hide();
+              });
+            </script>
 						</li>
+						</ul>
+						<div style="clear: both;">&nbsp;</div>
 						{% endfor %}
 						<input type="submit" value="Search"/>
-					</ul>
+					
 				</div>
 				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>

@@ -126,3 +126,6 @@ class SearchForm(forms.Form):
     if 'tags' not in self.cleaned_data:
       self.cleaned_data['tags'] = ''
     return self.cleaned_data
+
+class JoinProjectForm(forms.Form):
+  message = forms.CharField(max_length=150)

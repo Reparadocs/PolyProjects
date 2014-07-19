@@ -46,3 +46,9 @@ def sendMail(receiver, subject, message, send=True):
 
 def getVerificationCode(string):
   return hashlib.md5(string+os.environ['ADDED_SECURITY_STRING']).hexdigest()
+
+def delistify(arr):
+  return ','.join([str(i) for i in arr])
+
+def listify(arr):
+  return [int(x) for x in arr.split(',')]

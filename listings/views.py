@@ -3,10 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from listings.models import Listing, Notification, UserProfile, NotificationType
-from listings.forms import ListingForm, UserForm, SearchForm
-from functions import sendMail
+from listings.forms import ListingForm, UserForm, SearchForm, JoinProjectForm
+from functions import sendMail, delistify, listify
 import datetime
 from django.utils import timezone
 import os
@@ -34,6 +35,7 @@ def index(request):
   if request.method == 'POST':
     form = SearchForm(request.POST)
     if form.is_valid():
+      querystring = "?"
       skill = form.cleaned_data['skill']
       project_type = form.cleaned_data['project_type']
       poster_type = form.cleaned_data['poster_type']
@@ -44,23 +46,88 @@ def index(request):
         project_type__icontains=project_type,
         poster_type__icontains=poster_type,
         sponsored=sponsored)
+      querystring = "?project_type=" + project_type + "&poster_type=" + poster_type + "&sponsor=" + str(sponsored)
       if skill != []:
         listing_list = listing_list.filter(skill__in=skill)
+        querystring = querystring + "&skill=" + delistify(skill)
       if category != []:
         listing_list = listing_list.filter(category__in=category)
+        querystring = querystring + "&category=" + delistify(category)
       if major != []:
         listing_list = listing_list.filter(major__in=major)
-      print listing_list
-      return render(request, 'listings/search.html', {'listing_list':listing_list})
+        querystring = querystring + "&major=" + delistify(major)
+      listing_list = listing_list.order_by('-date_posted')
+      paginator = Paginator(listing_list, 10)
+      page = request.GET.get('page')
+      try:
+        listing_list = paginator.page(page)
+      except PageNotAnInteger:
+        listing_list = paginator.page(1)
+      except EmptyPage:
+        listing_list = paginator.page(paginator.num_pages)
+      form = SearchForm()
+      return render(request, 'listings/index.html', {'listing_list':listing_list, 'form':form,
+        'querystring':querystring})
   else:
     form = SearchForm()
-  listing_list = Listing.objects.filter(finished=False)
-  return render(request, 'listings/index.html', {'listing_list':listing_list,'form':form})
+  skill_id = request.GET.get('skill','unset')
+  major_id = request.GET.get('major','unset')
+  project_type_id = request.GET.get('project_type','')
+  cat_id = request.GET.get('category','unset')
+  poster_type_id = request.GET.get('poster_type','')
+  sponsor_id = request.GET.get('sponsor','unset')
+  querystring1 = "?project_type=" + project_type_id + "&poster_type=" + poster_type_id + "&sponsor=" + sponsor_id
+  querystring2 = "&skill=" + skill_id + "&category=" + cat_id + "&major=" + major_id
+  querystring = querystring1 + querystring2
+  listing_list = Listing.objects.filter(
+    project_type__icontains=project_type_id,
+    poster_type__icontains=poster_type_id, finished=False)
+  if sponsor_id != 'unset':
+    sponsor_id = 'true' == sponsor_id
+    listing_list = listing_list.filter(sponsored=sponsor_id)
+  if major_id != 'unset':
+    listing_list = listing_list.filter(major__in=listify(major_id))
+  if cat_id != 'unset':
+    listing_list = listing_list.filter(category__in=listify(cat_id))
+  if skill_id != 'unset':
+    listing_list = listing_list.filter(skill__in=listify(skill_id))
+  listing_list = listing_list.order_by('-date_posted')
+  paginator = Paginator(listing_list, 10)
+  page = request.GET.get('page')
+  try:
+    listing_list = paginator.page(page)
+  except PageNotAnInteger:
+    listing_list = paginator.page(1)
+  except EmptyPage:
+    listing_list = paginator.page(paginator.num_pages)
+  return render(request, 'listings/index.html', {'listing_list':listing_list,'form':form,'querystring':querystring})
 
 def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
+  form_success = False
+  form_errors = False
+  if request.method == 'POST':
+    form = JoinProjectForm(request.POST)
+    if form.is_valid():
+      msg = "{} wants to joing the team for {}: {}".format(request.user.first_name, listing.title,
+      form.cleaned_data['message'])
+      notification = Notification(receiver=listing.owner, sender=request.user, 
+        message=msg, listing=listing, ntype=NotificationType.JOIN_REQUEST)
+      sendMail(listing.owner.email, msg, os.environ['BASE_URL'] + "listings/notifications/",
+        listing.owner.email_verified and listing.owner.email_notifications)
+      notification.save()
+      form_success = True
+    else:
+      form_errors = True
+  else:
+    form = JoinProjectForm()
   showedit = listing.can_edit(request.user)
-  return render(request, 'listings/detail.html', {'listing':listing,'showedit':showedit})
+  canjoin = True
+  if listing.team.filter(pk=request.user.pk) or Notification.objects.filter(sender=request.user.id,
+    listing=listing.id, ntype=NotificationType.JOIN_REQUEST):
+    canjoin = False
+  return render(request, 'listings/detail.html',
+  {'listing':listing,'showedit':showedit,'form':form,'form_success':form_success,'form_errors':form_errors,'canjoin':canjoin})
 
 @login_required
 def create(request):
@@ -128,7 +195,6 @@ def join_request(request, listing_id):
   notification.save()
   return redirect(reverse('detail', args=(listing.id,)))
 
-
 @login_required
 def accept_join_request(request, notification_id):
   notification = get_object_or_404(Notification, pk=notification_id)
@@ -139,7 +205,8 @@ def accept_join_request(request, notification_id):
   notification.listing.team.add(notification.sender)
   msg = "Your request to join the team for {} has been accepted!".format(notification.listing.title)
   new_notification = Notification(receiver=notification.sender, sender=request.user, message=msg)
-  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" + notification.listing.id,
+  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" +
+  str(notification.listing.id),
     notification.sender.email_verified and notification.sender.email_notifications)
   new_notification.save()
   return redirect(reverse('notifications'))
@@ -154,7 +221,8 @@ def decline_join_request(request, notification_id):
   msg = "Your request to join the team for {} has been denied. Sorry :(".format(notification.listing.title)
   new_notification = Notification(receiver=notification.sender, sender=request.user,
     message=msg)
-  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" + notification.listing.id,
+  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" +
+  str(notification.listing.id),
     notification.sender.email_verified and notification.sender.email_notifications)
   new_notification.save()
   return redirect(reverse('notifications'))
