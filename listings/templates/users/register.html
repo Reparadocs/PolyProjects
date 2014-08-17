@@ -1,4 +1,25 @@
-<form method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit"/>
+{% extends "base.html" %}
+{% block content %}
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+  {% csrf_token %}
+
+  <div class="post">
+    <div style="clear: both;">&nbsp;</div>
+    {% for field in form %}
+    {{ field.errors }}
+    <h3>{{ field.label_tag }}</h3>
+    <div id="search" >
+        <div>
+          {{ field }}
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div style="clear: both;">&nbsp;</div>
+</div>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
 </form>
+
+{% endblock %}

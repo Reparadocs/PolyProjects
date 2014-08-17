@@ -1,14 +1,14 @@
 - model: listings.major
   pk: 1
   fields:
-    name: CPE CPE-Computer Engineering
+    name: Computer Engineering
 
 - model: listings.major
   pk: 2
   fields:
-    name: CSC CSC-Computer Science
+    name: Computer Science
 
 - model: listings.major
   pk: 3
   fields:
-    name: AER AERO-Aerospace Engineering
+    name: Aerospace Engineering
