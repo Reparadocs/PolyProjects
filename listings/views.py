@@ -20,7 +20,7 @@ def login(request):
   if poly_id == '':
     return redirect('https://mydev.calpoly.edu/cas/login?service=https://mysterious-fortress-8708.herokuapp.com/login/')
   r = requests.get('https://mydev.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mysterious-fortress-8708.herokuapp.com/login/')
-  return r.text
+  return HttpResponse(r.text)
 
 def register(request):
   if request.method == 'POST':
