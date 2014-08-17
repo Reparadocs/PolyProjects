@@ -9,7 +9,7 @@
           <div class="post">
             <h2 class="title">{{ listing.title }} 
             {% if listing.finished %} (Completed) {% endif %}</h2>
-            <p class="meta"><span class="date"> Updated {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.owner.get_full_name }}, <em>{{ listing.owner.get_major_display }}</em></span></p>
+            <p class="meta"><span class="date"> Updated {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.owner.get_full_name }}, <em>{{ listing.owner.major }}</em></span></p>
             <div style="clear: both;">&nbsp;</div>
             <div class="entry">
               <p><em>Category:
@@ -74,7 +74,7 @@
               <h2>Team Members:</h2>
               <ul>
                 {% for user in listing.team.all %}
-                  <li>{{user.get_full_name}}, <em>{{user.get_major_display}}</em></li>
+                  <li>{{user.get_full_name}}, <em>{{user.major}}</em></li>
                 {% endfor %}
               </ul>
             </li>

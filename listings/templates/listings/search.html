@@ -9,7 +9,7 @@
 				{% for listing in listing_list %}
 					<div class="post">
 						<h2 class="title"><a href="{% url 'detail' listing.pk %}">{{ listing.title }}</a></h2>
-						<p class="meta"><span class="date">Updated {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.owner.get_full_name }}, <em>{{ listing.owner.get_major_display }}</em></span></p>
+						<p class="meta"><span class="date">Updated {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.owner.get_full_name }}, <em>{{ listing.owner.major }}</em></span></p>
 						<div style="clear: both;">&nbsp;</div>
 						<div class="entry">
 							<p><em>Category:

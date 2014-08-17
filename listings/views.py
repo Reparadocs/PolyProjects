@@ -11,6 +11,16 @@ from functions import sendMail, delistify, listify
 import datetime
 from django.utils import timezone
 import os
+import requests
+
+def login(request):
+  if request.method != 'GET':
+    raise PermissionDenied
+  poly_id = request.GET.get('ticket','')
+  if poly_id == '':
+    return redirect('https://mydev.calpoly.edu/cas/login?service=https://mysterious-fortress-8708.herokuapp.com/login/')
+  r = requests.get('https://mydev.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mysterious-fortress-8708.herokuapp.com/login/')
+  return r.text
 
 def register(request):
   if request.method == 'POST':
