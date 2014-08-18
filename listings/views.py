@@ -24,7 +24,7 @@ def login(request):
   login_values = r.text.split()
   if login_values[0] == 'yes':
     try:
-      user = User.objects.get(username=login_values[1])
+      user = UserProfile.objects.get(username=login_values[1])
       user.backend = 'django.contrib.auth.backends.ModelBackend'
       login(request, user)
       return redirect(reverse('index'))
