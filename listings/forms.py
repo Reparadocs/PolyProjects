@@ -108,7 +108,6 @@ class SearchForm(forms.Form):
   major = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Major.objects.all()),
     widget=ColumnCheckboxSelectMultiple(css_class="columns"), required=False)
   tags = forms.CharField(required=False)
-  sponsored = forms.BooleanField(required=False)
   project_type = forms.ChoiceField(choices=[('','-----')]+iterableFromFile('/choices/types.list'), 
     required=False)
   poster_type = forms.ChoiceField(choices=[('','-----')]+iterableFromFile('/choices/posters.list'), 
