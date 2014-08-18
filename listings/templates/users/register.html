@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="post" action="{% url 'listings.views.login' %}">
+<form method="post" action="{% url 'listings.views.register' %}">
   {% csrf_token %}
 
   <div class="post">
@@ -18,8 +18,7 @@
   <div style="clear: both;">&nbsp;</div>
 </div>
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
+<input type="submit" value="Submit" />
 </form>
 
 {% endblock %}
