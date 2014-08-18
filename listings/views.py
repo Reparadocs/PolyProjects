@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -26,12 +26,12 @@ def login(request):
     try:
       user = UserProfile.objects.get(username=login_values[1])
       user.backend = 'django.contrib.auth.backends.ModelBackend'
-      login(request, user)
+      auth_login(request, user)
       return redirect(reverse('index'))
     except UserProfile.DoesNotExist:
       user = UserProfile.objects.create_user(login_values[1])
       user.backend = 'django.contrib.auth.backends.ModelBackend'
-      login(request, user)
+      auth_login(request, user)
       return redirect(reverse('register'))
   else:
     return redirect('https://mydev.calpoly.edu/cas/login?service=https://mysterious-fortress-8708.herokuapp.com/login/')
