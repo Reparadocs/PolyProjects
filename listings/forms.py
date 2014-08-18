@@ -85,11 +85,10 @@ def columnize(items, columns):
 
 
 class UserForm(ModelForm):
-  password = forms.CharField(widget=forms.PasswordInput())
   major = forms.ModelChoiceField(queryset=Major.objects.all())
   class Meta:
     model = UserProfile
-    fields = ['username', 'email', 'password','first_name','last_name','major','email_notifications']
+    fields = ['first_name','last_name','major','email_notifications']
 
 class ListingForm(ModelForm):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),

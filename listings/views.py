@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,21 +23,30 @@ def login(request):
   r = requests.get('https://mydev.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mysterious-fortress-8708.herokuapp.com/login/')
   login_values = r.text.split()
   if login_values[0] == 'yes':
-    return HttpResponse("success")
-  return HttpResponse("Fail")
+    try:
+      user = User.objects.get(username=login_values[1])
+      user.backend = 'django.contrib.auth.backends.ModelBackend'
+      login(request, user)
+      return redirect(reverse('index'))
+    except User.DoesNotExist:
+      user = User.objects.create_user(login_values[1])
+      user.backend = 'django.contrib.auth.backends.ModelBackend'
+      login(request, user)
+      return redirect(reverse('register'))
+  else:
+    return redirect('https://mydev.calpoly.edu/cas/login?service=https://mysterious-fortress-8708.herokuapp.com/login/')
 
 def register(request):
   if request.method == 'POST':
     form = UserForm(request.POST)
     if form.is_valid():
-      user = UserProfile.objects.create_user(form.cleaned_data['username'],
-        form.cleaned_data['email'], form.cleaned_data['password'])
+      user = request.user
       user.first_name = form.cleaned_data['first_name']
       user.last_name = form.cleaned_data['last_name']
       user.major = form.cleaned_data['major']
       user.email_notifications = form.cleaned_data['email_notifications']
       user.save()
-      if user.email_notifications:
+      if user.email_notifications and user.email_verified is False:
         verify_msg = os.environ['BASE_URL'] + "/verify_email/?verify={}".format(user.email_verification_code)
         sendMail(user.email, 'Verify Your Email', verify_msg)
       return redirect('/login/')
