@@ -28,8 +28,8 @@ def login(request):
       user.backend = 'django.contrib.auth.backends.ModelBackend'
       login(request, user)
       return redirect(reverse('index'))
-    except User.DoesNotExist:
-      user = User.objects.create_user(login_values[1])
+    except UserProfile.DoesNotExist:
+      user = UserProfile.objects.create_user(login_values[1])
       user.backend = 'django.contrib.auth.backends.ModelBackend'
       login(request, user)
       return redirect(reverse('register'))
