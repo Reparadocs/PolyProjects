@@ -7,7 +7,7 @@
         <form method="post">
         {% csrf_token %}
         <div style="clear: both;">&nbsp;</div>
-          <div id="sidebar">
+          <div id="content-create" class="post">
           {% for field in form %}
             <div>
               {{ field.errors }}
@@ -16,7 +16,7 @@
             </div>
             <div style="clear: both;">&nbsp;</div>
           {% endfor %}
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" id="nice-button" class="button"/>
           </div>
         <div style="clear: both;">&nbsp;</div>
         </form>

@@ -137,7 +137,7 @@ ul.errorlist {
 }
 
 #menu {
-	width: 1000px;
+	display: table;
 	height: 55px;
 	margin: 0px auto;
 	padding: 0px;
@@ -193,6 +193,26 @@ ul.errorlist {
 #content {
 	float: right;
 	width: 640px;
+}
+
+#content-create {
+	display: table;
+	margin: 0 auto;
+}
+
+#nice-button {
+	border: medium none;
+    color: #faa62a;
+    display: block;
+    font-family: 'Arvo',serif;
+    font-size: 10px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin: 0 10px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 .post {
