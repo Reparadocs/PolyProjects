@@ -34,11 +34,6 @@ Released   : 20130121
 			<li>
 			<a href="{% url 'listings.views.create' %}" class="button">Post your idea</a>
 			</li>
-			<li><a href="{% url 'listings.views.about' %}">About</a></li>
-			<li><a href="{% url 'listings.views.faq' %}">FAQ</a></li>
-			<li><a href="{% url 'listings.views.resources' %}">Resources</a></li>
-			<li><a href="{% url 'listings.views.calendar' %}">Calendar</a></li>
-			<li><a href="{% url 'listings.views.contact' %}">Contact</a></li>
       {% if request.user.is_authenticated %}
         <li><a href="{% url 'listings.views.notifications' %}">{{ request.user.get_unread_notifications.count }}</a></li>
         <li><a href="{% url 'listings.views.register' %}">Edit Profile</a></li>
@@ -63,6 +58,18 @@ Released   : 20130121
 {% block content %}{% endblock %}
 {% block footer %}
 <div id="footer">
+<div id="menu-wrapper">
+	<div id="menu">
+		<ul>
+			<li><a href="{% url 'listings.views.about' %}">About</a></li>
+			<li><a href="{% url 'listings.views.faq' %}">FAQ</a></li>
+			<li><a href="{% url 'listings.views.resources' %}">Resources</a></li>
+			<li><a href="{% url 'listings.views.calendar' %}">Calendar</a></li>
+			<li><a href="{% url 'listings.views.contact' %}">Contact</a></li>
+      </ul>
+	</div>
+	<!-- end #menu -->
+</div>
 	<p>&copy; 2014 mypolyproject.com. | Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.</p>
 </div>
 <!-- end #footer -->
