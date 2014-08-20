@@ -81,7 +81,7 @@ def index(request):
         listing_list = listing_list.filter(major__in=major)
         querystring = querystring + "&major=" + delistify(major)
       listing_list = listing_list.order_by('-date_posted')
-      paginator = Paginator(listing_list, 10)
+      paginator = Paginator(listing_list, 5)
       page = request.GET.get('page')
       try:
         listing_list = paginator.page(page)
@@ -116,7 +116,7 @@ def index(request):
   if skill_id != 'unset':
     listing_list = listing_list.filter(skill__in=listify(skill_id))
   listing_list = listing_list.order_by('-date_posted')
-  paginator = Paginator(listing_list, 10)
+  paginator = Paginator(listing_list, 5)
   page = request.GET.get('page')
   try:
     listing_list = paginator.page(page)
