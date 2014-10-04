@@ -24,7 +24,6 @@
         </div>
         <div id="sidebar">
           <ul>
-            {% if user.is_authenticated %}
             {% if showedit %}
             <li>
               <a href="{% url 'edit' listing.pk %}" class="button">Edit Project</a>
@@ -39,28 +38,6 @@
             <li>
               <div style="clear: both;">&nbsp;</div>
             </li>
-            {% elif not listing.finished and canjoin %}
-            <li>
-              <a id="join-project-button" class="button">Join Project</a>
-              <form id="join-project-form" method="post">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Submit" />
-              </form>
-              {% if form_success %}You submitted the request successfully{%endif%}
-              {% if not form_errors %}<script>$("#join-project-form").hide();</script>{%endif%}
-              <div style="clear: both;">&nbsp;</div>
-              <script>
-                $("#join-project-button").click(function() {
-                  $("#join-project-form").show();
-                });
-              </script>
-            </li>
-            {% elif not listing.finished %}
-            <li>
-            You have already submitted a request to join this team or are part of this team!
-            </li>
-            {% endif %}
             {% endif %}
             <li>
               <h2>Needs:</h2>

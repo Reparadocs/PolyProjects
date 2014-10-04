@@ -44,9 +44,6 @@ def sendMail(receiver, subject, message, send=True):
     server.sendmail('admin@sandbox74de207b727a484588a9c3fe48527dfc.mailgun.org',
       receiver, msg.as_string())
 
-def getVerificationCode(string):
-  return hashlib.md5(string+os.environ['ADDED_SECURITY_STRING']).hexdigest()
-
 def delistify(arr):
   return ','.join([str(i) for i in arr])
 

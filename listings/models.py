@@ -3,17 +3,11 @@ from functions import iterableFromFile
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 import datetime
-from functions import getVerificationCode
 
 CHOICE_LENGTH = 5
 
 def get_expiration_date():
   return timezone.now() + datetime.timedelta(days=30)
-
-class NotificationType():
-  DEFAULT = 0
-  JOIN_REQUEST = 1
-  EXPIRATION_NOTICE = 2
 
 class Skill(models.Model):
   name = models.CharField(max_length=30)
@@ -29,13 +23,10 @@ class Major(models.Model):
 
 class UserProfile(AbstractUser):
   major = models.ForeignKey(Major, null=True)
-  email_verified = models.BooleanField(default=False, blank=True)
-  email_verification_code = models.CharField(max_length=100, blank=True)
   email_notifications = models.BooleanField(default=True, blank=True)
 
   def __init__(self, *args, **kwargs):
     super(AbstractUser, self).__init__(*args, **kwargs)
-    self.email_verification_code = getVerificationCode(self.email)
 
   def get_unread_notifications(self):
     return self.notification_set.filter(completed=False)
@@ -68,9 +59,7 @@ class Notification(models.Model):
   message = models.CharField(max_length=200)
   receiver = models.ForeignKey(UserProfile, )
   completed = models.BooleanField(default=False)
-  sender = models.ForeignKey(UserProfile, blank=True, null=True, related_name='sender')
   listing = models.ForeignKey(Listing, blank=True, null=True)
-  ntype = models.IntegerField(default=NotificationType.DEFAULT)
 
   def can_edit(self, user):
     return user == self.receiver

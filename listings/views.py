@@ -6,8 +6,8 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
-from listings.models import Listing, Notification, UserProfile, NotificationType
-from listings.forms import ListingForm, UserForm, SearchForm, JoinProjectForm
+from listings.models import Listing, Notification, UserProfile
+from listings.forms import ListingForm, UserForm, SearchForm
 from functions import sendMail, delistify, listify
 import datetime
 from django.utils import timezone
@@ -47,9 +47,6 @@ def register(request):
       user.major = form.cleaned_data['major']
       user.email_notifications = form.cleaned_data['email_notifications']
       user.save()
-      if user.email_notifications and user.email_verified is False:
-        verify_msg = os.environ['BASE_URL'] + "/verify_email/?verify={}".format(user.email_verification_code)
-        sendMail(user.email, 'Verify Your Email', verify_msg)
       return redirect('/login/')
   else:
     form = UserForm()
@@ -128,30 +125,9 @@ def index(request):
 
 def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
-  form_success = False
-  form_errors = False
-  if request.method == 'POST':
-    form = JoinProjectForm(request.POST)
-    if form.is_valid():
-      msg = "{} wants to joing the team for {}: {}".format(request.user.first_name, listing.title,
-      form.cleaned_data['message'])
-      notification = Notification(receiver=listing.owner, sender=request.user, 
-        message=msg, listing=listing, ntype=NotificationType.JOIN_REQUEST)
-      sendMail(listing.owner.email, msg, os.environ['BASE_URL'] + "listings/notifications/",
-        listing.owner.email_verified and listing.owner.email_notifications)
-      notification.save()
-      form_success = True
-    else:
-      form_errors = True
-  else:
-    form = JoinProjectForm()
   showedit = listing.can_edit(request.user)
-  canjoin = True
-  if listing.team.filter(pk=request.user.pk) or Notification.objects.filter(sender=request.user.id,
-    listing=listing.id, ntype=NotificationType.JOIN_REQUEST):
-    canjoin = False
   return render(request, 'listings/detail.html',
-  {'listing':listing,'showedit':showedit,'form':form,'form_success':form_success,'form_errors':form_errors,'canjoin':canjoin})
+  {'listing':listing,'showedit':showedit})
 
 @login_required
 def create(request):
@@ -198,58 +174,6 @@ def flip_finished(request, listing_id):
     listing.expiration_date = timezone.now() + datetime.datetime.now()
   listing.save()
   return redirect(reverse('detail', args=(listing.id,)))
-
-@login_required
-def verify_email(request):
-  verify = request.GET.get('verify','')
-  if verify == request.user.email_verification_code:
-    request.user.email_verified = True
-    request.user.save()
-  return redirect(reverse('index'))
-
-#Notification Views
-@login_required
-def join_request(request, listing_id):
-  listing = get_object_or_404(Listing, pk=listing_id)
-  msg = "{} wants to joing the team for {}!".format(request.user.first_name, listing.title)
-  notification = Notification(receiver=listing.owner, sender=request.user, 
-    message=msg, listing=listing, ntype=NotificationType.JOIN_REQUEST)
-  sendMail(listing.owner.email, msg, os.environ['BASE_URL'] + "listings/notifications/",
-    listing.owner.email_verified and listing.owner.email_notifications)
-  notification.save()
-  return redirect(reverse('detail', args=(listing.id,)))
-
-@login_required
-def accept_join_request(request, notification_id):
-  notification = get_object_or_404(Notification, pk=notification_id)
-  if not notification.listing.can_edit(request.user):
-    raise PermissionDenied
-  notification.completed=True
-  notification.save()
-  notification.listing.team.add(notification.sender)
-  msg = "Your request to join the team for {} has been accepted!".format(notification.listing.title)
-  new_notification = Notification(receiver=notification.sender, sender=request.user, message=msg)
-  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" +
-  str(notification.listing.id),
-    notification.sender.email_verified and notification.sender.email_notifications)
-  new_notification.save()
-  return redirect(reverse('notifications'))
-
-@login_required
-def decline_join_request(request, notification_id):
-  notification = get_object_or_404(Notification, pk=notification_id)
-  if not notification.listing.can_edit(request.user):
-    raise PermissionDenied
-  notification.completed=True
-  notification.save()
-  msg = "Your request to join the team for {} has been denied. Sorry :(".format(notification.listing.title)
-  new_notification = Notification(receiver=notification.sender, sender=request.user,
-    message=msg)
-  sendMail(notification.sender.email, msg, os.environ['BASE_URL'] + "/detail/" +
-  str(notification.listing.id),
-    notification.sender.email_verified and notification.sender.email_notifications)
-  new_notification.save()
-  return redirect(reverse('notifications'))
 
 @login_required
 def complete_notification(request, notification_id):
