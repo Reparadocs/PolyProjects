@@ -32,7 +32,7 @@ def login(request):
       user = UserProfile.objects.create_user(login_values[1])
       user.backend = 'django.contrib.auth.backends.ModelBackend'
       auth_login(request, user)
-      return redirect(reverse('register'))
+      return redirect(reverse('/register'))
   else:
     return redirect('https://mydev.calpoly.edu/cas/login?service=https://mysterious-fortress-8708.herokuapp.com/login/')
 
