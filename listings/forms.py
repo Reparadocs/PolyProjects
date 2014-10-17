@@ -9,11 +9,6 @@ import math
 from itertools import chain
 
 class ColumnCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    """
-    Widget that renders multiple-select checkboxes in columns.
-    Constructor takes number of columns and css class to apply
-    to the <ul> elements that make up the columns.
-    """
     def __init__(self, columns=2, css_class=None, **kwargs):
         super(self.__class__, self).__init__(**kwargs)
         self.columns = columns
@@ -25,8 +20,6 @@ class ColumnCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         final_attrs = self.build_attrs(attrs, name=name)
         choices_enum = list(enumerate(chain(self.choices, choices)))
         
-        # This is the part that splits the choices into columns.
-        # Slices vertically.  Could be changed to slice horizontally, etc.
         column_sizes = columnize(len(choices_enum), self.columns)
         columns = []
         for column_size in column_sizes:
@@ -38,11 +31,8 @@ class ColumnCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
                 output.append(u'<ul class="%s">' % self.css_class)
             else:
                 output.append(u'<ul>')
-            # Normalize to strings
             str_values = set([force_unicode(v) for v in value])
             for i, (option_value, option_label) in column:
-                # If an ID attribute was given, add a numeric index as a suffix,
-                # so that the checkboxes don't all have the same ID attribute.
                 if has_id:
                     final_attrs = dict(final_attrs, id='%s_%s' % (
                             attrs['id'], i))
@@ -72,7 +62,7 @@ def columnize(items, columns):
 
 
 class UserForm(ModelForm):
-  major = forms.ModelChoiceField(queryset=Major.objects.all())
+  major = forms.ModelChoiceField(queryset=Major.objects.all(), required=False)
   class Meta:
     model = UserProfile
     fields = ['email', 'first_name','last_name','major','email_notifications']
