@@ -23,6 +23,10 @@ Backlog
 - Reports should link to reported listing in admin site
 - Graphical tweaks
 - Look into categories and skills
-- Posting Limit
-- Optional other email or other contact methods
-- Better alternative to notifications/email notifications 
+- Posting Limit 
+- User Register Form fill in with previous info
+- Change Skill to Skills Needed
+- Remove email and notifications
+- Tabbed search and create project form
+- Add checkbox for innovation sandbox, email them (theinnovationsandbox@gma.com)
+
