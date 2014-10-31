@@ -12,3 +12,6 @@ Get it working
 4. Run syncdb
 5. Run init.py (Initializes fixtures)
 6. Run loaddata on each fixture (skills, categories, majors)
+
+
+Change this line when you need to refresh loaddata

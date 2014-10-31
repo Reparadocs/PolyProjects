@@ -9,6 +9,15 @@ CHOICE_LENGTH = 5
 def get_expiration_date():
   return timezone.now() + datetime.timedelta(days=30)
 
+
+class Report(models.Model):
+  owner = models.ForeignKey(UserProfile,)
+  listing = models.ForeignKey(Listing,)
+  message = models.CharField(max_length=500)
+
+  def __unicode__(self):
+    return self.listing.title
+
 class Skill(models.Model):
   name = models.CharField(max_length=30)
 
