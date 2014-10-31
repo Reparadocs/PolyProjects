@@ -6,6 +6,7 @@ admin.site.register(Skill)
 admin.site.register(Category)
 admin.site.register(Major)
 admin.site.register(UserProfile)
+admin.site.register(Report)
 
 
 
