@@ -77,9 +77,8 @@ class Notification(models.Model):
     return user == self.receiver
 
 class Report(models.Model):
-  owner = models.ForeignKey(UserProfile,)
   listing = models.ForeignKey(Listing,)
-  message = models.CharField(max_length=500)
+  message = models.TextField(blank=True)
 
   def __unicode__(self):
     return self.listing.title

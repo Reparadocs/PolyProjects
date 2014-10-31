@@ -38,6 +38,13 @@
             <li>
               <div style="clear: both;">&nbsp;</div>
             </li>
+            {% else %}
+            <li>
+              <a href="{% url 'report' listing.pk %}" class="button">Report Project</a>
+            <li>
+            <li>
+              <div style="clear: both;">&nbsp;</div>
+            </li>
             {% endif %}
             <li>
               <h2>Needs:</h2>

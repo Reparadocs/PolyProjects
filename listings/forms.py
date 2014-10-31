@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from functions import iterableFromFile
-from listings.models import Listing, Skill, Category, UserProfile, Major
+from listings.models import Listing, Skill, Category, UserProfile, Major, Report
 from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
@@ -59,6 +59,11 @@ def columnize(items, columns):
         items -= col_size
         columns -= 1
     return elts_per_column
+
+class ReportForm(ModelForm):
+  class Meta:
+    model = Report
+    fields = ['message',]
 
 
 class UserForm(ModelForm):

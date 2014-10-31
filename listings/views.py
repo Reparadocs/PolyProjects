@@ -6,8 +6,8 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
-from listings.models import Listing, Notification, UserProfile
-from listings.forms import ListingForm, UserForm, SearchForm
+from listings.models import Listing, Notification, UserProfile, Report
+from listings.forms import ListingForm, UserForm, SearchForm, ReportForm
 from functions import sendMail, delistify, listify
 import datetime
 from django.utils import timezone
@@ -129,6 +129,19 @@ def detail(request, listing_id):
   return render(request, 'listings/detail.html',
   {'listing':listing,'showedit':showedit})
 
+def report(request, listing_id):
+  reported_listing = Listing.objects.get(pk=listing_id)
+  if request.method == 'POST':
+    form = ReportForm(request.POST)
+    if form.is_valid():
+      report = form.save(commit=False)
+      report.listing = reported_listing
+      report.save()
+      return redirect(reverse('report_thankyou',))
+  else:
+    form = ReportForm()
+  return render(request, 'listings/report.html', {'form': form, 'reported_listing' : reported_listing})
+
 @login_required
 def create(request):
   if request.method == 'POST':
@@ -218,6 +231,9 @@ def renew_listing(request, listing_id):
   return redirect(reverse('detail', args=(listing.id,)))
 
 #Static Views
+def report_thankyou(request):
+  return render(request, 'listings/report_thankyou.html')
+
 def about(request):
   return render(request, 'info/about.html')
 
