@@ -15,3 +15,12 @@ Get it working
 
 
 Change this line when you need to refresh loaddata
+
+
+Backlog
+=======
+
+- Reports should link to reported listing in admin site
+- Graphical tweaks
+- Look into categories and skills
+- Posting Limit
