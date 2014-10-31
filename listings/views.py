@@ -42,7 +42,7 @@ def register(request):
     form = UserForm(request.POST)
     if form.is_valid():
       user = request.user
-      user.email = form.cleaned_data['email']
+      user.contact = form.cleaned_data['contact']
       user.first_name = form.cleaned_data['first_name']
       user.last_name = form.cleaned_data['last_name']
       user.major = form.cleaned_data['major']
