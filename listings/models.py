@@ -12,8 +12,14 @@ def get_expiration_date():
 class Skill(models.Model):
   name = models.CharField(max_length=30)
 
+  def __unicode__(self):
+    return self.name
+
 class Category(models.Model):
   name = models.CharField(max_length=30)
+
+  def __unicode__(self):
+    return self.name
 
 class Major(models.Model):
   name = models.CharField(max_length=30)
@@ -27,6 +33,9 @@ class UserProfile(AbstractUser):
 
   def __init__(self, *args, **kwargs):
     super(AbstractUser, self).__init__(*args, **kwargs)
+
+  def __unicode__(self):
+    return self.username
 
   def get_unread_notifications(self):
     return self.notification_set.filter(completed=False)
@@ -53,6 +62,9 @@ class Listing(models.Model):
 
   def can_edit(self, user):
     return user == self.owner
+
+  def __unicode__(self):
+    return self.title
 
 
 class Notification(models.Model):

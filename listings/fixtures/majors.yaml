@@ -1,14 +1,309 @@
 - model: listings.major
   pk: 1
   fields:
-    name: Computer Engineering
+    name: Aerospace Engineering
 
 - model: listings.major
   pk: 2
   fields:
-    name: Computer Science
+    name: Agricultural Business
 
 - model: listings.major
   pk: 3
   fields:
-    name: Aerospace Engineering
+    name: Agricultural Communications
+
+- model: listings.major
+  pk: 4
+  fields:
+    name: Agricultural and Environmental Plant Sciences
+
+- model: listings.major
+  pk: 5
+  fields:
+    name: Agricultural Science
+
+- model: listings.major
+  pk: 6
+  fields:
+    name: Agricultural Systems Management
+
+- model: listings.major
+  pk: 7
+  fields:
+    name: Animal Science
+
+- model: listings.major
+  pk: 8
+  fields:
+    name: Anthropology and Geography
+
+- model: listings.major
+  pk: 9
+  fields:
+    name: Architectural Engineering
+
+- model: listings.major
+  pk: 10
+  fields:
+    name: Architecture
+
+- model: listings.major
+  pk: 11
+  fields:
+    name: Art and Design
+
+- model: listings.major
+  pk: 12
+  fields:
+    name: Biochemistry
+
+- model: listings.major
+  pk: 13
+  fields:
+    name: Biological Sciences
+
+- model: listings.major
+  pk: 14
+  fields:
+    name: Biomedical Engineering
+
+- model: listings.major
+  pk: 15
+  fields:
+    name: BioResource & Agricultural Engineering
+
+- model: listings.major
+  pk: 16
+  fields:
+    name: Business Administration
+
+- model: listings.major
+  pk: 17
+  fields:
+    name: Chemistry
+
+- model: listings.major
+  pk: 18
+  fields:
+    name: Child Development
+
+- model: listings.major
+  pk: 19
+  fields:
+    name: City & Regional Planning
+
+- model: listings.major
+  pk: 20
+  fields:
+    name: Civil Engineering
+
+- model: listings.major
+  pk: 21
+  fields:
+    name: Comparative Ethnic Studies
+
+- model: listings.major
+  pk: 22
+  fields:
+    name: Communication Studies
+
+- model: listings.major
+  pk: 23
+  fields:
+    name: Computer Engineering
+
+- model: listings.major
+  pk: 24
+  fields:
+    name: Computer Science
+
+- model: listings.major
+  pk: 25
+  fields:
+    name: Construction Management
+
+- model: listings.major
+  pk: 26
+  fields:
+    name: Dairy Science
+
+- model: listings.major
+  pk: 27
+  fields:
+    name: Economics
+
+- model: listings.major
+  pk: 28
+  fields:
+    name: Electrical Engineering
+
+- model: listings.major
+  pk: 29
+  fields:
+    name: English
+
+- model: listings.major
+  pk: 30
+  fields:
+    name: Environmental Earth Science
+
+- model: listings.major
+  pk: 31
+  fields:
+    name: Environmental Engineering
+
+- model: listings.major
+  pk: 32
+  fields:
+    name: Environmental Management and Protection
+
+- model: listings.major
+  pk: 33
+  fields:
+    name: Environmental Soil Science
+
+- model: listings.major
+  pk: 34
+  fields:
+    name: Food Science
+
+- model: listings.major
+  pk: 35
+  fields:
+    name: Forestry and Natural Resources
+
+- model: listings.major
+  pk: 36
+  fields:
+    name: General Engineering
+
+- model: listings.major
+  pk: 37
+  fields:
+    name: Graphic Communications
+
+- model: listings.major
+  pk: 38
+  fields:
+    name: History
+
+- model: listings.major
+  pk: 39
+  fields:
+    name: Industrial Engineering
+
+- model: listings.major
+  pk: 40
+  fields:
+    name: Industrial Technology
+
+- model: listings.major
+  pk: 41
+  fields:
+    name: Journalism
+
+- model: listings.major
+  pk: 42
+  fields:
+    name: Kinesiology
+
+- model: listings.major
+  pk: 43
+  fields:
+    name: Landscape Architecture
+
+- model: listings.major
+  pk: 44
+  fields:
+    name: Liberal Studies
+
+- model: listings.major
+  pk: 45
+  fields:
+    name: Manufacturing Engineering
+
+- model: listings.major
+  pk: 46
+  fields:
+    name: Materials Engineering
+
+- model: listings.major
+  pk: 47
+  fields:
+    name: Mathematics
+
+- model: listings.major
+  pk: 48
+  fields:
+    name: Mechanical Engineering
+
+- model: listings.major
+  pk: 49
+  fields:
+    name: Microbiology
+
+- model: listings.major
+  pk: 50
+  fields:
+    name: Modern Languages & Literatures
+
+- model: listings.major
+  pk: 51
+  fields:
+    name: Music
+
+- model: listings.major
+  pk: 52
+  fields:
+    name: Nutrition
+
+- model: listings.major
+  pk: 53
+  fields:
+    name: Philosophy
+
+- model: listings.major
+  pk: 54
+  fields:
+    name: Physics
+
+- model: listings.major
+  pk: 55
+  fields:
+    name: Political Science
+
+- model: listings.major
+  pk: 56
+  fields:
+    name: Psychology
+
+- model: listings.major
+  pk: 57
+  fields:
+    name: Recreation, Parks, and Tourism Administration
+
+- model: listings.major
+  pk: 58
+  fields:
+    name: Sociology
+
+- model: listings.major
+  pk: 59
+  fields:
+    name: Software Engineering
+
+- model: listings.major
+  pk: 60
+  fields:
+    name: Statistics
+
+- model: listings.major
+  pk: 61
+  fields:
+    name: Theatre Arts
+
+- model: listings.major
+  pk: 62
+  fields:
+    name: Wine & Viticulture
