@@ -31,7 +31,7 @@
 - model: listings.skill
   pk: 7
   fields:
-    name: Designer
+    name: Graphic Designer
 
 - model: listings.skill
   pk: 8

@@ -91,7 +91,7 @@
 - model: listings.category
   pk: 19
   fields:
-    name: Philanthropy
+    name: Philanthropy/Volunteer
 
 - model: listings.category
   pk: 20

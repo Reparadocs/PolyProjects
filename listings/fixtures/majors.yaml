@@ -1,32 +1,32 @@
 - model: listings.major
   pk: 1
   fields:
-    name: Aerospace Engineering
+    name: Aerospace Engineering 
 
 - model: listings.major
   pk: 2
   fields:
-    name: Agricultural Business
+    name: Agricultural Business 
 
 - model: listings.major
   pk: 3
   fields:
-    name: Agricultural Communications
+    name: Agricultural Communication
 
 - model: listings.major
   pk: 4
   fields:
-    name: Agricultural and Environmental Plant Sciences
+    name: Ag and Env Plant Science
 
 - model: listings.major
   pk: 5
   fields:
-    name: Agricultural Science
+    name: Agricultural Science  
 
 - model: listings.major
   pk: 6
   fields:
-    name: Agricultural Systems Management
+    name: Agricultural Systems Mgmt
 
 - model: listings.major
   pk: 7
@@ -41,12 +41,12 @@
 - model: listings.major
   pk: 9
   fields:
-    name: Architectural Engineering
+    name: Architectural Engineering 
 
 - model: listings.major
   pk: 10
   fields:
-    name: Architecture
+    name: Architecture  
 
 - model: listings.major
   pk: 11
@@ -56,12 +56,12 @@
 - model: listings.major
   pk: 12
   fields:
-    name: Biochemistry
+    name: Biochemistry  
 
 - model: listings.major
   pk: 13
   fields:
-    name: Biological Sciences
+    name: Biological Science
 
 - model: listings.major
   pk: 14
@@ -71,7 +71,7 @@
 - model: listings.major
   pk: 15
   fields:
-    name: BioResource & Agricultural Engineering
+    name: BRAE
 
 - model: listings.major
   pk: 16
@@ -81,22 +81,22 @@
 - model: listings.major
   pk: 17
   fields:
-    name: Chemistry
+    name: Chemistry 
 
 - model: listings.major
   pk: 18
   fields:
-    name: Child Development
+    name: Child Development 
 
 - model: listings.major
   pk: 19
   fields:
-    name: City & Regional Planning
+    name: City & Regional Planning  
 
 - model: listings.major
   pk: 20
   fields:
-    name: Civil Engineering
+    name: Civil Engineering 
 
 - model: listings.major
   pk: 21
@@ -106,32 +106,32 @@
 - model: listings.major
   pk: 22
   fields:
-    name: Communication Studies
+    name: Communication Studies 
 
 - model: listings.major
   pk: 23
   fields:
-    name: Computer Engineering
+    name: Computer Engineering  
 
 - model: listings.major
   pk: 24
   fields:
-    name: Computer Science
+    name: Computer Science  
 
 - model: listings.major
   pk: 25
   fields:
-    name: Construction Management
+    name: Construction Managemen
 
 - model: listings.major
   pk: 26
   fields:
-    name: Dairy Science
+    name: Dairy Science 
 
 - model: listings.major
   pk: 27
   fields:
-    name: Economics
+    name: Economics 
 
 - model: listings.major
   pk: 28
@@ -151,12 +151,12 @@
 - model: listings.major
   pk: 31
   fields:
-    name: Environmental Engineering
+    name: Environmental Engineering 
 
 - model: listings.major
   pk: 32
   fields:
-    name: Environmental Management and Protection
+    name: Env Mgmt + Protection
 
 - model: listings.major
   pk: 33
@@ -166,12 +166,12 @@
 - model: listings.major
   pk: 34
   fields:
-    name: Food Science
+    name: Food Science  
 
 - model: listings.major
   pk: 35
   fields:
-    name: Forestry and Natural Resources
+    name: Forestry + Natural Resources
 
 - model: listings.major
   pk: 36
@@ -196,7 +196,7 @@
 - model: listings.major
   pk: 40
   fields:
-    name: Industrial Technology
+    name: Industrial Technology 
 
 - model: listings.major
   pk: 41
@@ -221,12 +221,12 @@
 - model: listings.major
   pk: 45
   fields:
-    name: Manufacturing Engineering
+    name: Manufacturing Engineering 
 
 - model: listings.major
   pk: 46
   fields:
-    name: Materials Engineering
+    name: Materials Engineering 
 
 - model: listings.major
   pk: 47
@@ -241,22 +241,22 @@
 - model: listings.major
   pk: 49
   fields:
-    name: Microbiology
+    name: Microbiology  
 
 - model: listings.major
   pk: 50
   fields:
-    name: Modern Languages & Literatures
+    name: Modern Languages & Lit
 
 - model: listings.major
   pk: 51
   fields:
-    name: Music
+    name: Music 
 
 - model: listings.major
   pk: 52
   fields:
-    name: Nutrition
+    name: Nutrition 
 
 - model: listings.major
   pk: 53
@@ -271,7 +271,7 @@
 - model: listings.major
   pk: 55
   fields:
-    name: Political Science
+    name: Political Science 
 
 - model: listings.major
   pk: 56
@@ -281,17 +281,17 @@
 - model: listings.major
   pk: 57
   fields:
-    name: Recreation, Parks, and Tourism Administration
+    name: Rec, Parks, Tourism Admin 
 
 - model: listings.major
   pk: 58
   fields:
-    name: Sociology
+    name: Sociology 
 
 - model: listings.major
   pk: 59
   fields:
-    name: Software Engineering
+    name: Software Engineering  
 
 - model: listings.major
   pk: 60
@@ -301,7 +301,7 @@
 - model: listings.major
   pk: 61
   fields:
-    name: Theatre Arts
+    name: Theatre Arts  
 
 - model: listings.major
   pk: 62
