@@ -11,7 +11,7 @@
             {% if listing.finished %} (Completed) {% endif %}</h2>
             <p class="meta"><span class="date"> Created {{ listing.date_posted }}</span><span class="posted">
             {% if listing.owner.get_full_name|length > 0 %}
-            Posted by {{ listing.owner.get_full_name }} {% else %}Posted by Anonymous {% endif %}<em>{% if listing.owner.major|length > 0 %}, {{ listing.owner.major }}{% endif %}</em></span></p>
+            Posted by {{ listing.owner.get_full_name }}{% else %}Posted by Anonymous{% endif %}<em>{% if listing.owner.major%}, {{ listing.owner.major }}{% endif %}</em></span></p>
             <div style="clear: both;">&nbsp;</div>
             <div class="entry">
               <p><em>Category:
@@ -74,7 +74,8 @@
               <h2>Created By:</h2>
               <ul>
                 {% for user in listing.team.all %}
-                  <li>{{user.get_full_name}}, <em>{{user.major}}</em></li>
+                  {% if listing.owner.get_full_name|length > 0 %}
+            <li>{{ listing.owner.get_full_name }}{% else %}Anonymous{% endif %}<em>{% if listing.owner.major %}, {{ listing.owner.major }}{% endif %}</em></li>
                 {% endfor %}
               </ul>
             </li>
