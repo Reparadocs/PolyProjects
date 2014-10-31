@@ -37,6 +37,7 @@ def login(request):
     return redirect('https://mydev.calpoly.edu/cas/login?service=https://mysterious-fortress-8708.herokuapp.com/login/')
 
 def register(request):
+  listings = Listing.objects.filter(owner=request.user)
   if request.method == 'POST':
     form = UserForm(request.POST)
     if form.is_valid():
@@ -50,7 +51,7 @@ def register(request):
       return redirect('/login/')
   else:
     form = UserForm()
-  return render(request, 'users/register.html', {'form':form})
+  return render(request, 'users/register.html', {'form':form, 'listings': listings})
     
 def index(request):
   if request.method == 'POST':
@@ -187,15 +188,6 @@ def flip_finished(request, listing_id):
     listing.expiration_date = timezone.now() + datetime.datetime.now()
   listing.save()
   return redirect(reverse('detail', args=(listing.id,)))
-
-@login_required
-def complete_notification(request, notification_id):
-  notification = get_object_or_404(Notification, pk=notification_id)
-  if not notification.can_edit(request.user):
-    raise PermissionDenied
-  notification.completed=True
-  notification.save()
-  return redirect(reverse('notifications'))
 
 @login_required
 def renew_listing_notification(request, notification_id):

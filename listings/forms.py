@@ -67,10 +67,11 @@ class ReportForm(ModelForm):
 
 
 class UserForm(ModelForm):
+  contact = forms.CharField(label='Alternate Contact Method (Leave blank for CalPoly email):', required=False)
   major = forms.ModelChoiceField(queryset=Major.objects.all(), required=False)
   class Meta:
     model = UserProfile
-    fields = ['first_name','last_name','major','email_notifications']
+    fields = ['contact','first_name','last_name','major','email_notifications']
 
 class ListingForm(ModelForm):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),

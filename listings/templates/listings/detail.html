@@ -9,7 +9,9 @@
           <div class="post">
             <h2 class="title">{{ listing.title }} 
             {% if listing.finished %} (Completed) {% endif %}</h2>
-            <p class="meta"><span class="date"> Created {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.owner.get_full_name }}, <em>{{ listing.owner.major }}</em></span></p>
+            <p class="meta"><span class="date"> Created {{ listing.date_posted }}</span><span class="posted">
+            {% if listing.owner.get_full_name|length > 0 %}
+            Posted by {{ listing.owner.get_full_name }} {% else %}Posted by Anonymous {% endif %}<em>{% if listing.owner.major|length > 0 %}, {{ listing.owner.major }}{% endif %}</em></span></p>
             <div style="clear: both;">&nbsp;</div>
             <div class="entry">
               <p><em>Category:
@@ -39,6 +41,20 @@
               <div style="clear: both;">&nbsp;</div>
             </li>
             {% else %}
+            {% if user.is_authenticated %}
+            {% if listing.owner.contact|length > 0 %}
+            Contact Project Leader: {{listing.owner.contact}}
+            {% else %}
+            E-mail Project Leader: {{ listing.owner.username }}
+            {% endif %}
+            <br>
+            <br>
+            {% else %}
+            <li>
+              <a href="{% url 'listings.views.login' %}" class="button">Login to Contact Project Leader</a>
+            <li>
+            <br>
+            {% endif %}
             <li>
               <a href="{% url 'report' listing.pk %}" class="button">Report Project</a>
             <li>
@@ -55,7 +71,7 @@
               </ul>
             </li>
             <li>
-              <h2>Team Members:</h2>
+              <h2>Created By:</h2>
               <ul>
                 {% for user in listing.team.all %}
                   <li>{{user.get_full_name}}, <em>{{user.major}}</em></li>

@@ -30,6 +30,7 @@ class Major(models.Model):
 class UserProfile(AbstractUser):
   major = models.ForeignKey(Major, null=True)
   email_notifications = models.BooleanField(default=True, blank=True)
+  contact = models.CharField(max_length=50, blank=True)
 
   def __init__(self, *args, **kwargs):
     super(AbstractUser, self).__init__(*args, **kwargs)

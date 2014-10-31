@@ -24,3 +24,5 @@ Backlog
 - Graphical tweaks
 - Look into categories and skills
 - Posting Limit
+- Optional other email or other contact methods
+- Better alternative to notifications/email notifications 

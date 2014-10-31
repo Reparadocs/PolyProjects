@@ -2,15 +2,8 @@
 {% block content %}
 {% for notification in notification_list %}
 {{ notification.message }} 
-{% if notification.ntype == 0 %}
-<a href="{% url 'complete_notification' notification.pk %}" class="button">OK</a>
-{% elif notification.ntype == 1 %}
-<a href="{% url 'accept_join_request' notification.pk %}" class="button">Accept</a>
-<a href="{% url 'decline_join_request' notification.pk %}" class="button">Decline</a>
-{% elif notification.ntype == 2 %}
 <a href="{% url 'renew_listing_notification' notification.pk %}" class="button">Renew</a>
 <a href="{% url 'finish_listing_notification' notification.pk %}" class="button">Complete</a>
-{% endif %}
 <div style="clear: both;">&nbsp;</div>
 {% endfor %}
 {% endblock %}    

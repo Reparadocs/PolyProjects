@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+The following fields are optional but highly recommended
 <form method="post" action="{% url 'listings.views.register' %}">
   {% csrf_token %}
 
@@ -21,4 +22,10 @@
 <input type="submit" value="Submit" />
 </form>
 
+{% if listings %}
+<h3>Your Listings</h3>
+{% for listing in listings %}
+<a href="{% url 'detail' listing.pk %}">{{listing}}</a>
+{% endfor %}
+{% endif %}
 {% endblock %}

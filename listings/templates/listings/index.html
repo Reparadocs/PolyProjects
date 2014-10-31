@@ -11,7 +11,8 @@
 				{% for listing in listing_list %}
 					<div class="post">
 						<h2 class="title"><a href="{% url 'detail' listing.pk %}">{{ listing.title }}</a></h2>
-						<p class="meta"><span class="date">Created {{ listing.date_posted }}</span><span class="posted">Posted by {{ listing.owner.get_full_name }}, <em>{{ listing.owner.major }}</em></span></p>
+						<p class="meta"><span class="date">Created {{ listing.date_posted }}</span><span class="posted">{% if listing.owner.get_full_name|length > 0 %}
+            Posted by {{ listing.owner.get_full_name }} {% else %}Posted by Anonymous {% endif %}<em>{% if listing.owner.major|length > 0 %}, {{ listing.owner.major }}{% endif %}</em></span></p>
 						<div class="entry">
 							<p><em>Category:
               				{% for category in listing.category.all %}
