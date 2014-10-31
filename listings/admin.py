@@ -1,5 +1,5 @@
 from django.contrib import admin
-from listings.models import Listing, Skill, Category, Major, UserProfile
+from listings.models import Listing, Skill, Category, Major, UserProfile, Report
 
 admin.site.register(Listing)
 admin.site.register(Skill)
