@@ -45,7 +45,9 @@ def sendMail(receiver, subject, message, send=True):
       receiver, msg.as_string())
 
 def sendMailToInnovation(listing):
-  sendMail("theinnovationsandbox@gmail.com", "PolyProjects " + listing.title, "")
+  message = "Email: " + listing.owner.username + "\nTitle: " + listing.title + "\nDescription: " + listing.description
+
+  sendMail("reparadocs@gmail.com", "PolyProjects " + listing.title, message)
 
 def delistify(arr):
   return ','.join([str(i) for i in arr])
