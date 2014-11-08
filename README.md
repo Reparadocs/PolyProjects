@@ -25,6 +25,5 @@ Backlog
 - Look into categories and skills
 - Posting Limit 
 - User Register Form fill in with previous info*
-- Change Skill to Skills Needed*
 - Tabbed search and create project form*
-
+- Search Form should work*

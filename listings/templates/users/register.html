@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-The following fields are optional but highly recommended
+The following fields are optional but highly recommended. If you are a FERPA student, please note that your name and major will be publicly available.
 <form method="post" action="{% url 'listings.views.register' %}">
   {% csrf_token %}
 

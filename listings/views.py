@@ -61,7 +61,6 @@ def index(request):
       project_type = form.cleaned_data['project_type']
       poster_type = form.cleaned_data['poster_type']
       category = form.cleaned_data['category']
-      sponsored = form.cleaned_data['sponsored']
       major = form.cleaned_data['major']
       listing_list = Listing.objects.filter(
         project_type__icontains=project_type,

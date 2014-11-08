@@ -75,7 +75,7 @@ class UserForm(ModelForm):
 
 class ListingForm(ModelForm):
   skill = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Skill.objects.all()),
-    widget=ColumnCheckboxSelectMultiple(css_class="columns"))
+    widget=ColumnCheckboxSelectMultiple(css_class="columns"), label='Skills Needed')
   category = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Category.objects.all()),
     widget=ColumnCheckboxSelectMultiple(css_class="columns"))
   innovation_sandbox = forms.BooleanField()
