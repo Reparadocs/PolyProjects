@@ -40,9 +40,12 @@ def sendMail(receiver, subject, message, send=True):
     msg['From'] = "PolyProjects"
     msg['To'] = receiver
     server = smtplib.SMTP('smtp.mailgun.org', 587)
-    server.login(os.environ['SMTP_EMAIL'], os.environ['SMTP_PASSWORD'])
-    server.sendmail('admin@sandbox74de207b727a484588a9c3fe48527dfc.mailgun.org',
+    server.login("postmaster@" + os.environ['SMTP_EMAIL'], os.environ['SMTP_PASSWORD'])
+    server.sendmail('admin@' + os.environ['SMTP_EMAIL'],
       receiver, msg.as_string())
+
+def sendMailToInnovation(listing):
+  sendMail("theinnovationsandbox@gmail.com", "PolyProjects " + listing.title, "")
 
 def delistify(arr):
   return ','.join([str(i) for i in arr])

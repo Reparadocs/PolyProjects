@@ -6,9 +6,9 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
-from listings.models import Listing, Notification, UserProfile, Report
+from listings.models import Listing, UserProfile, Report
 from listings.forms import ListingForm, UserForm, SearchForm, ReportForm
-from functions import sendMail, delistify, listify
+from functions import sendMailToInnovation, delistify, listify
 import datetime
 from django.utils import timezone
 import os
@@ -39,14 +39,13 @@ def login(request):
 def register(request):
   listings = Listing.objects.filter(owner=request.user)
   if request.method == 'POST':
-    form = UserForm(request.POST)
+    form = UserForm(data=request.POST, instance=request.user)
     if form.is_valid():
       user = request.user
       user.contact = form.cleaned_data['contact']
       user.first_name = form.cleaned_data['first_name']
       user.last_name = form.cleaned_data['last_name']
       user.major = form.cleaned_data['major']
-      user.email_notifications = form.cleaned_data['email_notifications']
       user.save()
       return redirect('/login/')
   else:
@@ -153,6 +152,8 @@ def create(request):
       listing.save()
       listing.team.add(request.user)
       form.save_m2m()
+      if form.cleaned_data['innovation_sandbox'] is True:
+        sendMailToInnovation(listing)
       return redirect(reverse('detail', args=(listing.id,)))
   else:
     form = ListingForm()
@@ -172,11 +173,6 @@ def edit(request, listing_id):
     form = ListingForm(instance=listing)
   return render(request, 'listings/edit.html', {'form':form})  
 
-@login_required
-def notifications(request):
-  notification_list = request.user.notification_set.filter(completed=False)
-  return render(request, 'users/notifications.html', {'notification_list':notification_list})
-
 #Endpoints
 @login_required
 def flip_finished(request, listing_id):
@@ -184,44 +180,10 @@ def flip_finished(request, listing_id):
   if not listing.can_edit(request.user):
     raise PermissionDenied
   listing.finished = not listing.finished
-  if listing.finished == True:
-    listing.expiration_date = timezone.now() + datetime.datetime.now()
   listing.save()
   return redirect(reverse('detail', args=(listing.id,)))
 
-@login_required
-def renew_listing_notification(request, notification_id):
-  notification = get_object_or_404(Notification, pk=notification_id)
-  if not notification.can_edit(request.user):
-    raise PermissionDenied
-  notification.completed=True
-  notification.save()
-  notification.listing.expiration_date = timezone.now() + datetime.timedelta(days=30)
-  notification.listing.finished=False
-  notification.listing.save()
-  return redirect(reverse('notifications'))
-
-@login_required
-def finish_listing_notification(request, notification_id):
-  notification = get_object_or_404(Notification, pk=notification_id)
-  if not notification.can_edit(request.user):
-    raise PermissionDenied
-  notification.completed=True
-  notification.save()
-  notification.listing.finished=True
-  notification.listing.save()
-  return redirect(reverse('notifications'))
-
-@login_required
-def renew_listing(request, listing_id):
-  listing = get_object_or_404(Listing, pk=listing_id)
-  if not listing.can_edit(request.user):
-    raise PermissionDenied
-  listing.expiration_date = timezone.now() + datetime.timedelta(days=30)
-  listing.finished=False
-  listing.save()
-  return redirect(reverse('detail', args=(listing.id,)))
-
+  
 #Static Views
 def report_thankyou(request):
   return render(request, 'listings/report_thankyou.html')

@@ -29,7 +29,6 @@ class Major(models.Model):
 
 class UserProfile(AbstractUser):
   major = models.ForeignKey(Major, null=True)
-  email_notifications = models.BooleanField(default=True, blank=True)
   contact = models.CharField(max_length=50, blank=True)
 
   def __init__(self, *args, **kwargs):
@@ -38,15 +37,11 @@ class UserProfile(AbstractUser):
   def __unicode__(self):
     return self.username
 
-  def get_unread_notifications(self):
-    return self.notification_set.filter(completed=False)
-
 class Listing(models.Model):
   owner = models.ForeignKey(UserProfile, related_name='owner')
   title = models.CharField(max_length=50)
   description = models.TextField()
   date_posted = models.DateTimeField(auto_now_add=True, blank=True)
-  expiration_date = models.DateTimeField(default=get_expiration_date,blank=True)
   tags = models.CharField(max_length=100, blank=True)
 
   finished = models.BooleanField(default=False, blank=True)
@@ -66,16 +61,6 @@ class Listing(models.Model):
 
   def __unicode__(self):
     return self.title
-
-
-class Notification(models.Model):
-  message = models.CharField(max_length=200)
-  receiver = models.ForeignKey(UserProfile, )
-  completed = models.BooleanField(default=False)
-  listing = models.ForeignKey(Listing, blank=True, null=True)
-
-  def can_edit(self, user):
-    return user == self.receiver
 
 class Report(models.Model):
   listing = models.ForeignKey(Listing,)

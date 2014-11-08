@@ -35,7 +35,6 @@ Released   : 20130121
 			<a href="{% url 'listings.views.create' %}" class="button">Post your idea</a>
 			</li>
       {% if request.user.is_authenticated %}
-        <li><a href="{% url 'listings.views.notifications' %}">{{ request.user.get_unread_notifications.count }}</a></li>
         <li><a href="{% url 'listings.views.register' %}">Edit Profile</a></li>
         <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
       {% else %}
