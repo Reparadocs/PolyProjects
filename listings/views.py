@@ -64,8 +64,7 @@ def index(request):
       major = form.cleaned_data['major']
       listing_list = Listing.objects.filter(
         project_type__icontains=project_type,
-        poster_type__icontains=poster_type,
-        sponsored=sponsored)
+        poster_type__icontains=poster_type)
       querystring = "?project_type=" + project_type + "&poster_type=" + poster_type + "&sponsor=" + str(sponsored)
       if skill != []:
         listing_list = listing_list.filter(skill__in=skill)
