@@ -65,7 +65,7 @@ def index(request):
       listing_list = Listing.objects.filter(
         project_type__icontains=project_type,
         poster_type__icontains=poster_type)
-      querystring = "?project_type=" + project_type + "&poster_type=" + poster_type + "&sponsor=" + str(sponsored)
+      querystring = "?project_type=" + project_type + "&poster_type=" + poster_type
       if skill != []:
         listing_list = listing_list.filter(skill__in=skill)
         querystring = querystring + "&skill=" + delistify(skill)
@@ -94,16 +94,12 @@ def index(request):
   project_type_id = request.GET.get('project_type','')
   cat_id = request.GET.get('category','unset')
   poster_type_id = request.GET.get('poster_type','')
-  sponsor_id = request.GET.get('sponsor','unset')
-  querystring1 = "?project_type=" + project_type_id + "&poster_type=" + poster_type_id + "&sponsor=" + sponsor_id
+  querystring1 = "?project_type=" + project_type_id + "&poster_type=" + poster_type_id
   querystring2 = "&skill=" + skill_id + "&category=" + cat_id + "&major=" + major_id
   querystring = querystring1 + querystring2
   listing_list = Listing.objects.filter(
     project_type__icontains=project_type_id,
     poster_type__icontains=poster_type_id, finished=False)
-  if sponsor_id != 'unset':
-    sponsor_id = 'true' == sponsor_id
-    listing_list = listing_list.filter(sponsored=sponsor_id)
   if major_id != 'unset':
     listing_list = listing_list.filter(major__in=listify(major_id))
   if cat_id != 'unset':
