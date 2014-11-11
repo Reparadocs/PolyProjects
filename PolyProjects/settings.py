@@ -62,7 +62,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-DATABASES = {}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'PolyProjectsDB',
+        'USER': 'PolyProjectsUser',
+        'PASSWORD': 'PolyProjectsPassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -88,9 +97,6 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/listings/'
 
 EMAIL_PORT = 25
-
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
