@@ -19,8 +19,8 @@ def login(request):
     raise PermissionDenied
   poly_id = request.GET.get('ticket','')
   if poly_id == '':
-    return redirect('https://my.calpoly.edu/cas/login?service=https://mypolyprojects.com/login/')
-  r = requests.get('https://my.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mypolyprojects.com/login/')
+    return redirect('https://my.calpoly.edu/cas/login?service=https://mypolyproject.com/login/')
+  r = requests.get('https://my.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mypolyproject.com/login/')
   login_values = r.text.split()
   if login_values[0] == 'yes':
     try:
@@ -34,7 +34,7 @@ def login(request):
       auth_login(request, user)
       return redirect(reverse('listings.views.register'))
   else:
-    return redirect('https://my.calpoly.edu/cas/login?service=https://mypolyprojects.com/login/')
+    return redirect('https://my.calpoly.edu/cas/login?service=https://mypolyproject.com/login/')
 
 def register(request):
   listings = Listing.objects.filter(owner=request.user)
