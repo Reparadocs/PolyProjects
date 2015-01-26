@@ -15,9 +15,7 @@
             <div style="clear: both;">&nbsp;</div>
             <div class="entry">
               <p><em>Category:
-              {% for category in listing.category.all %}
-                {{ category.name }},
-              {% endfor %}
+              {{listing.get_categories_string}}
               </em></p>
               {{ listing.description }}
             </div>
