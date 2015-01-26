@@ -56,14 +56,6 @@ class Listing(models.Model):
 
   team = models.ManyToManyField(UserProfile, related_name='team')
 
-  def get_categories_string(self):
-    cat_list = list(self.category.all())
-    rtn = ""
-    for i in range(0, len(cat_list)):
-      rtn += cat_list[i]
-      if i is not len(cat_list)-1:
-         rtn += ", "
-    return rtn
 
 
   def can_edit(self, user):

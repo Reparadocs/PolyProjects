@@ -120,8 +120,9 @@ def index(request):
 def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
   showedit = listing.can_edit(request.user)
+  rtn = catString(listing)
   return render(request, 'listings/detail.html',
-  {'listing':listing,'showedit':showedit})
+  {'listing':listing,'showedit':showedit, 'cat':rtn})
 
 def report(request, listing_id):
   reported_listing = Listing.objects.get(pk=listing_id)
@@ -196,3 +197,9 @@ def faq(request):
 
 def resources(request):
   return render(request, 'info/resources.html')
+
+def catString(listing):
+  rtn = ""
+  for cat in listing.category.all():
+    rtn += str(cat) + ", "
+  return rtn[:-2]
