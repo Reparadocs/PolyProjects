@@ -1,5 +1,6 @@
 import smtplib
 import os
+from listings.secret import Key
 from email.mime.text import MIMEText
 import random
 import hashlib
@@ -40,14 +41,15 @@ def sendMail(receiver, subject, message, send=True):
     msg['From'] = "PolyProjects"
     msg['To'] = receiver
     server = smtplib.SMTP('smtp.mailgun.org', 587)
-    server.login("postmaster@" + os.environ['SMTP_EMAIL'], os.environ['SMTP_PASSWORD'])
-    server.sendmail('admin@' + os.environ['SMTP_EMAIL'],
+    server.login("postmaster@" + Key.SMTP_EMAIL, Key.SMTP_PASSWORD)
+    server.sendmail('admin@' + Key.SMTP_EMAIL,
       receiver, msg.as_string())
 
 def sendMailToInnovation(listing):
   message = "Email: " + listing.owner.username + "\nTitle: " + listing.title + "\nDescription: " + listing.description
 
-  sendMail("reparadocs@gmail.com", "PolyProjects " + listing.title, message)
+  #Uncomment when you have a final email
+  #sendMail("reparadocs@gmail.com", "PolyProjects " + listing.title, message)
 
 def delistify(arr):
   return ','.join([str(i) for i in arr])

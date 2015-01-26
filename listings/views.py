@@ -19,8 +19,8 @@ def login(request):
     raise PermissionDenied
   poly_id = request.GET.get('ticket','')
   if poly_id == '':
-    return redirect('https://my.calpoly.edu/cas/login?service=https://mypolyproject.com/login/')
-  r = requests.get('https://my.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mypolyproject.com/login/')
+    return redirect('https://my.calpoly.edu/cas/login?service=http://mypolyproject.com/login/')
+  r = requests.get('https://my.calpoly.edu/cas/validate?ticket='+poly_id+'&service=http://mypolyproject.com/login/')
   login_values = r.text.split()
   if login_values[0] == 'yes':
     try:
