@@ -19,8 +19,8 @@ def login(request):
     raise PermissionDenied
   poly_id = request.GET.get('ticket','')
   if poly_id == '':
-    return redirect('https://my.calpoly.edu/cas/login?service=https://mypolyproject.com/login/')
-  r = requests.get('https://my.calpoly.edu/cas/validate?ticket='+poly_id+'&service=https://mypolyproject.com/login/')
+    return redirect('https://my.calpoly.edu/cas/login?service=http://mypolyproject.com/login/')
+  r = requests.get('https://my.calpoly.edu/cas/validate?ticket='+poly_id+'&service=http://mypolyproject.com/login/')
   login_values = r.text.split()
   if login_values[0] == 'yes':
     try:
@@ -120,8 +120,9 @@ def index(request):
 def detail(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
   showedit = listing.can_edit(request.user)
+  rtn = catString(listing)
   return render(request, 'listings/detail.html',
-  {'listing':listing,'showedit':showedit})
+  {'listing':listing,'showedit':showedit, 'cat':rtn})
 
 def report(request, listing_id):
   reported_listing = Listing.objects.get(pk=listing_id)
@@ -196,3 +197,9 @@ def faq(request):
 
 def resources(request):
   return render(request, 'info/resources.html')
+
+def catString(listing):
+  rtn = ""
+  for cat in listing.category.all():
+    rtn += str(cat) + ", "
+  return rtn[:-2]
