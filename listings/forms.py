@@ -78,7 +78,7 @@ class ListingForm(ModelForm):
     widget=ColumnCheckboxSelectMultiple(css_class="columns"), label='Skills Needed')
   category = forms.MultipleChoiceField(choices=((x.id, x.name) for x in Category.objects.all()),
     widget=ColumnCheckboxSelectMultiple(css_class="columns"))
-  innovation_sandbox = forms.BooleanField()
+  innovation_sandbox = forms.BooleanField(required=False)
   class Meta:
     model = Listing
     fields = ['title', 'description', 'tags', 'sponsored',
